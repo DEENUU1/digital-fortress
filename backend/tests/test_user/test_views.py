@@ -33,3 +33,18 @@ def test_user_account_me_get_unauthenticated_success(user_active: UserAccount) -
     response = view(request)
 
     assert response.status_code == 401
+
+
+@pytest.mark.django_db
+def test_user_account_me_put_authenticated_success(user_active: UserAccount) -> None:
+    request = factory.put('api/v1/user/me', {
+        "first_name": "new_first_name",
+        "last_name": "new_last_name",
+    })
+    view = UserAccountMeAPI.as_view()
+
+    force_authenticate(request, user=user_active)
+    response = view(request)
+
+    assert response.status_code == 200
+    assert response.data == "Account updated"
