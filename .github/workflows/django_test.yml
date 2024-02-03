@@ -26,8 +26,6 @@ jobs:
           python manage.py migrate
 
       - name: Run pytest
-        env:
-          SECRET_KEY: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-        working-directory: ./
+        working-directory: ./backend
         run: |
           pytest
