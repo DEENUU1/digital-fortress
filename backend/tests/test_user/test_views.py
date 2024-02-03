@@ -23,3 +23,13 @@ def test_user_account_me_get_authenticated_success(user_active: UserAccount) -> 
         "last_name": user_active.last_name,
         "email": user_active.email,
     }
+
+
+@pytest.mark.django_db
+def test_user_account_me_get_unauthenticated_success(user_active: UserAccount) -> None:
+    request = factory.get('api/v1/user/me')
+    view = UserAccountMeAPI.as_view()
+
+    response = view(request)
+
+    assert response.status_code == 401
