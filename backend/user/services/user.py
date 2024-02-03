@@ -1,5 +1,6 @@
 from ..models import UserAccount
 from typing import Dict
+from rest_framework import exceptions
 
 
 class UserAccountService:
@@ -12,7 +13,7 @@ class UserAccountService:
         last_name = data.get("last_name", None)
 
         if not first_name or not last_name:
-            raise ValueError("First name or last name can not be none")
+            raise exceptions.ValidationError({"error": "First name or last name can not be none"})
 
         self.user.first_name = first_name
         self.user.last_name = last_name
