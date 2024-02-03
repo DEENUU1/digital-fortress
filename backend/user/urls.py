@@ -12,3 +12,5 @@ urlpatterns_user = [
     path('me/', UserAccountMeGetAPI.as_view(), name='user_account_get_me'),
 
 ]
+
+urlpatterns = urlpatterns_jwt + urlpatterns_user

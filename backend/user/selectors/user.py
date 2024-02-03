@@ -8,4 +8,5 @@ class UserAccountSelector:
         self.user = user
 
     def get_me(self) -> OutputUserAccountSerializer:
-        return OutputUserAccountSerializer(self.user)
+        user_obj = UserAccount.objects.get(id=self.user)
+        return OutputUserAccountSerializer(user_obj).data
