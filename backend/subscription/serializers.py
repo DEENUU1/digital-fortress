@@ -9,6 +9,8 @@ class OutputProductPriceSerializer(ModelSerializer):
 
 
 class OutputProductSerializer(ModelSerializer):
+    price = OutputProductPriceSerializer(many=True)
+
     class Meta:
         model = Product
         fields = ("id", "name", "description", "price", "max_project_storage", "num_of_projects")
