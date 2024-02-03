@@ -25,3 +25,19 @@ class ProductPrice(BaseModel):
 
     def __str__(self):
         return f"{self.value} {self.currency} {self.billing_cycle}"
+
+
+class Product(BaseModel):
+    name = models.CharField(max_length=50, unique=True)
+    description = models.TextField()
+    price = models.ManyToManyField(ProductPrice)
+    max_project_storage = models.PositiveIntegerField()
+    num_of_projects = models.PositiveIntegerField()
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+
+    def __str__(self):
+        return f"{self.name}"
