@@ -13,3 +13,12 @@ class ProductListView(APIView):
         products = ProductSelector().list()
         serializer = OutputProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProductDetailView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, product_id: int):
+        product = ProductSelector().get(product_id)
+        serializer = OutputProductPriceSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
