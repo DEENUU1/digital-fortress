@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from .selectors.product import ProductSelector
 from .selectors.user_subscription import UserSubscriptionSelector
-from .serializers import OutputProductPriceSerializer, OutputProductSerializer, OutputUserSubscription
+from .serializers import OutputProductSerializer, OutputUserSubscription
 
 
 class ProductListView(APIView):
@@ -21,7 +21,7 @@ class ProductDetailView(APIView):
 
     def get(self, request, product_id: int):
         product = ProductSelector().get(product_id)
-        serializer = OutputProductPriceSerializer(product)
+        serializer = OutputProductSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

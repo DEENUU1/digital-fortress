@@ -4,7 +4,7 @@ from .views import ProductListView, ProductDetailView, UserSubscriptionGetView
 
 urlpatterns_product = [
     path('', ProductListView.as_view(), name='product_list'),
-    path('<int:pk>/', ProductDetailView.as_view(), name="product_details"),
+    path('<int:product_id>/', ProductDetailView.as_view(), name="product_details"),
 ]
 
 urlpatterns_subscription = [
