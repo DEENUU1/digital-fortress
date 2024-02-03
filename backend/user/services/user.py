@@ -1,5 +1,5 @@
 from ..models import UserAccount
-from typing import Optional, Dict
+from typing import Dict
 
 
 class UserAccountService:

@@ -7,16 +7,12 @@ from .serializers import OutputUserAccountSerializer
 from .services.user import UserAccountService
 
 
-class UserAccountMeGetAPI(APIView):
+class UserAccountMeAPI(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = UserAccountSelector(request.user).get_me()
         return Response(OutputUserAccountSerializer(user).data, status=status.HTTP_200_OK)
-
-
-class UpdateUserAccountAPI(APIView):
-    permission_classes = [IsAuthenticated]
 
     def put(self, request):
         UserAccountService(request.user).update(request.data)

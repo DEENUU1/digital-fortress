@@ -1,6 +1,6 @@
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.urls import path
-from .views import UserAccountMeGetAPI
+from .views import UserAccountMeAPI
 
 
 urlpatterns_jwt = [
@@ -9,7 +9,7 @@ urlpatterns_jwt = [
 ]
 
 urlpatterns_user = [
-    path('me/', UserAccountMeGetAPI.as_view(), name='user_account_get_me'),
+    path('me/', UserAccountMeAPI.as_view(), name='user_account_get_me'),
 
 ]
 
