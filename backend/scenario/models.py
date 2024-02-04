@@ -21,3 +21,17 @@ class Project(BaseModel):
     @property
     def storage_usage(self):
         return f"{self.current_storage}/{self.limit_storage}"
+
+
+class Scenario(BaseModel):
+    parent_id = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.SET_NULL)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    response = models.TextField(null=True, blank=True)
+    user_details = models.TextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Scenario"
+        verbose_name_plural = "Scenarios"
+
+    def __str__(self):
+        return self.project
