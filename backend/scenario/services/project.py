@@ -23,3 +23,15 @@ class ProjectService:
 
         project.save()
         return project
+
+    def update(self, data: Dict, project: Project) -> Project:
+        title = data.get("title", None)
+
+        if not title:
+            raise ValidationError("Title is required")
+
+        project.title = title
+        project.save()
+        return project
+
+
