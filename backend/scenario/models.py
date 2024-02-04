@@ -28,6 +28,7 @@ class Scenario(BaseModel):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     response = models.TextField(null=True, blank=True)
     user_details = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Scenario"
