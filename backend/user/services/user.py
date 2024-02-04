@@ -1,20 +1,15 @@
 from ..models import UserAccount
+from user.repository.user import UserAccountRepository
 from typing import Dict
-from rest_framework import exceptions
 
 
 class UserAccountService:
 
-    def __init__(self, user: UserAccount):
-        self.user = user
+    def __init__(self, repository: UserAccountRepository):
+        self._repository = repository
 
-    def update(self, data: Dict[str, str]) -> None:
-        first_name = data.get("first_name", None)
-        last_name = data.get("last_name", None)
+    def get(self, user_id: int) -> UserAccount:
+        return self._repository.get_by_id(_id=user_id)
 
-        if not first_name or not last_name:
-            raise exceptions.ValidationError({"error": "First name or last name can not be none"})
-
-        self.user.first_name = first_name
-        self.user.last_name = last_name
-        self.user.save()
+    def update(self, user_id: int, data: Dict) -> UserAccount:
+        return self._repository.update(_id=user_id, data=data)
