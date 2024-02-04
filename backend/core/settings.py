@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # Project
     'user',
     'subscription',
+    'scenario',
 ]
 
 MIDDLEWARE = [
