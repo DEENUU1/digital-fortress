@@ -34,4 +34,8 @@ class ProjectService:
         project.save()
         return project
 
+    def delete(self, project: Project) -> None:
+        project.delete()
+
+
 
