@@ -1,40 +1,28 @@
-from typing import Dict
+from typing import Dict, Optional, List
 
-from rest_framework.exceptions import ValidationError
-
-from scenario.models import Project
-from subscription.selectors.user_subscription import UserSubscriptionSelector
-from user.models import UserAccount
+from scenario.repository.project import ProjectRepository
+from ..models import Project
 
 
 class ProjectService:
 
-    def create(self, user: UserAccount, data: Dict) -> Project:
-        title = data.get("title", None)
+    def __init__(self, repository: ProjectRepository):
+        self._repository = repository
 
-        if not title:
-            raise ValidationError("Title is required")
+    def create(self, data: Dict) -> Project:
+        return self._repository.create(data)
 
-        user_subscription = UserSubscriptionSelector().get(user.pk)
+    def update(self, _id: int, data: Dict) -> Project:
+        return self._repository.update(_id, data)
 
-        project = Project(
-            title=title,
-            limit_storage=user_subscription.product.max_project_storage,
-            user=user
-        )
+    def delete(self, _id: int) -> None:
+        return self._repository.delete(_id)
 
-        project.save()
-        return project
+    def get_by_slug(self, slug: str) -> Optional[Project]:
+        return self._repository.get_by_slug(slug)
 
-    def update(self, data: Dict, project: Project) -> Project:
-        title = data.get("title", None)
+    def get_all(self) -> List[Optional[Project]]:
+        return self._repository.get_all()
 
-        if not title:
-            raise ValidationError("Title is required")
-
-        project.title = title
-        project.save()
-        return project
-
-    def delete(self, project: Project) -> None:
-        project.delete()
+    def has_root_scenario(self, _id: int) -> bool:
+        return self._repository.has_root(_id)
