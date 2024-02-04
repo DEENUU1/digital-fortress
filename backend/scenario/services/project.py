@@ -1,8 +1,10 @@
-from scenario.models import Project
-from rest_framework.exceptions import ValidationError
-from user.models import UserAccount
 from typing import Dict
+
+from rest_framework.exceptions import ValidationError
+
+from scenario.models import Project
 from subscription.selectors.user_subscription import UserSubscriptionSelector
+from user.models import UserAccount
 
 
 class ProjectService:
@@ -36,6 +38,3 @@ class ProjectService:
 
     def delete(self, project: Project) -> None:
         project.delete()
-
-
-
