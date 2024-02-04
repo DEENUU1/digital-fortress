@@ -1,7 +1,7 @@
 import pytest
 
 from tests.test_user.fixtures import user_active
-from .fixture import project, scenario_root, scenario_children
+from .fixture import project, scenario_root, scenario_children, user_active
 
 
 @pytest.mark.django_db

@@ -1,5 +1,6 @@
 from typing import Any, Optional, List, Dict
 from django.db import models
+from rest_framework.exceptions import NotFound
 
 
 class CRUDRepository:
@@ -14,7 +15,7 @@ class CRUDRepository:
         try:
             return self._model.objects.get(id=_id)
         except self._model.DoesNotExist:
-            return None
+            raise NotFound(f"Object with id {_id} does not exist")
 
     def create(self, data: Dict) -> Any:
         return self._model.objects.create(**data)

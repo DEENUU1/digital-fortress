@@ -16,18 +16,20 @@ def project(user_active) -> Project:
 
 
 @pytest.fixture()
-def scenario_root(project) -> Scenario:
+def scenario_root(project, user_active) -> Scenario:
     return Scenario.objects.create(
         project=project,
         response="Hey I am AI assistant",
-        user_details="Hi, what's your name"
+        user_details="Hi, what's your name",
+        user=user_active,
     )
 
 
 @pytest.fixture()
-def scenario_children(scenario_root, project) -> Scenario:
+def scenario_children(scenario_root, project, user_active) -> Scenario:
     return Scenario.objects.create(
         project_id=1,
         project=project,
-        response="How can i help you?"
+        response="How can i help you?",
+        user=user_active
     )
