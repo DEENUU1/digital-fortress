@@ -5,10 +5,11 @@ from rest_framework.views import APIView
 
 from .repository import project as project_repo, scenario as scenario_repo
 from .services import project as project_service, scenario as scenario_service
+from .permissions import IsOwner
 
 
 class ProjectManagementAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwner]
     _service = project_service.ProjectService(project_repo.ProjectRepository())
 
     def get(self, request):
