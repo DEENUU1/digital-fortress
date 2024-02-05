@@ -1,4 +1,5 @@
 from rest_framework.serializers import ModelSerializer
+
 from .models import Project, Scenario
 
 
@@ -11,7 +12,17 @@ class InputProjectSerializer(ModelSerializer):
 class OutputProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
-        fields = ("id", "title", "slug", "limit_storage", "current_storage", "num_of_scenarios", "user")
+        fields = (
+            "id",
+            "title",
+            "slug",
+            "limit_storage",
+            "current_storage",
+            "num_of_scenarios",
+            "user",
+            "created_at",
+            "updated_at"
+        )
 
 
 class InputScenarioSerializer(ModelSerializer):
@@ -23,4 +34,12 @@ class InputScenarioSerializer(ModelSerializer):
 class OutputScenarioSerializer(ModelSerializer):
     class Meta:
         model = Scenario
-        fields = ("parent_id", "response", "user_details", "user")
+        fields = (
+            "id",
+            "parent_id",
+            "response",
+            "user_details",
+            "user",
+            "created_at",
+            "updated_at"
+        )
