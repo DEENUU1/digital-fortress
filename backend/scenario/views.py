@@ -46,3 +46,39 @@ class ProjectDetailsAPIView(APIView):
         project = self._service.get_by_slug(project_slug)
         serializer = OutputProjectSerializer(project)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ScenarioManagementAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
+
+    def get(self, request):
+        scenarios = self._service.get_all()
+        serializer = OutputScenarioSerializer(scenarios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = InputScenarioSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        scenarios = self._service.create(serializer.data)
+        return Response(scenarios, status=status.HTTP_201_CREATED)
+
+    def delete(self, request, scenario_id: int):
+        self._service.delete(scenario_id)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def has_root(self, project_id: int):
+        root = self._service.get_root(project_id)
+        if root:
+            return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class ScenarioDetailsAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
+
+    def get(self, request, scenario_id: int):
+        scenario = self._service.get_by_id(scenario_id)
+        serializer = OutputScenarioSerializer(scenario)
+        return Response(serializer.data, status=status.HTTP_200_OK)

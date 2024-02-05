@@ -26,3 +26,6 @@ class ScenarioService:
     def has_root(self, project_id: int) -> bool:
         root = self.get_root(project_id)
         return root is not None
+
+    def get_by_id(self, _id: int) -> Optional[Scenario]:
+        return self._repository.get_by_id(_id)
