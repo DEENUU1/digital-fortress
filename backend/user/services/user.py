@@ -1,6 +1,10 @@
 from user.repository.user import UserAccountRepository
 from typing import Dict
-from ..serializers import OutputUserAccountSerializer
+from ..serializers import (
+    OutputUserAccountSerializer,
+    InputCreateUserAccountSerializer,
+    InputUpdateUserAccountSerializer
+)
 
 
 class UserAccountService:
@@ -13,7 +17,22 @@ class UserAccountService:
         serializer = OutputUserAccountSerializer(user)
         return serializer.data
 
-    def update(self, user_id: int, data: Dict) -> Dict:
+    def update(self, user_id: int, request) -> Dict:
+        serializer = InputUpdateUserAccountSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.data
+
         user = self._repository.update(_id=user_id, data=data)
+        serializer = OutputUserAccountSerializer(user)
+        return serializer.data
+
+    def create(self, request) -> Dict:
+        serializer = InputCreateUserAccountSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.data
+
+        user = self._repository.create(data)
         serializer = OutputUserAccountSerializer(user)
         return serializer.data

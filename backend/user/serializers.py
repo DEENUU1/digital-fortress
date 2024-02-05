@@ -20,3 +20,14 @@ class InputUpdateUserAccountSerializer(ModelSerializer):
             "first_name",
             "last_name",
         )
+
+
+class InputCreateUserAccountSerializer(ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = (
+            "email",
+            "first_name",
+            "last_name",
+            "password",
+        )
