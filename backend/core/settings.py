@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
 
-
     # Build in
     'django.contrib.admin',
     'django.contrib.auth',

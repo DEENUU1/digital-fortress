@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from .repository import project as project_repo, scenario as scenario_repo
 from .services import project as project_service, scenario as scenario_service
 from .permissions import IsOwner
+from drf_yasg.utils import swagger_auto_schema
+from .serializers import InputProjectSerializer, InputScenarioSerializer
 
 
 class ProjectListCreateAPIView(APIView):
@@ -16,6 +18,7 @@ class ProjectListCreateAPIView(APIView):
         projects = self._service.get_all(request)
         return Response(projects, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(operation_description="Create new project", request_body=InputProjectSerializer)
     def post(self, request):
         project = self._service.create(request)
         return Response(project, status=status.HTTP_201_CREATED)
@@ -33,6 +36,7 @@ class ProjectDetailDeleteUpdateAPIView(APIView):
         self._service.delete(request, pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    @swagger_auto_schema(operation_description="Update project", request_body=InputProjectSerializer)
     def put(self, request, pk: int):
         project = self._service.update(request, pk)
         return Response(project, status=status.HTTP_200_OK)
@@ -42,6 +46,7 @@ class ScenarioCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
+    @swagger_auto_schema(operation_description="Create new scenario", request_body=InputScenarioSerializer)
     def post(self, request):
         scenario = self._service.create(request)
         return Response(scenario, status=status.HTTP_201_CREATED)
