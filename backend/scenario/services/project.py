@@ -1,7 +1,8 @@
-from typing import Dict, Optional, List
+from typing import Dict, List
 
 from scenario.repository.project import ProjectRepository
-from ..models import Project
+from user.models import UserAccount
+from ..serializers import OutputProjectSerializer, InputProjectSerializer
 
 
 class ProjectService:
@@ -9,17 +10,37 @@ class ProjectService:
     def __init__(self, repository: ProjectRepository):
         self._repository = repository
 
-    def create(self, data: Dict) -> Project:
-        return self._repository.create(data)
+    def create(self, request) -> Dict:
+        serializer = InputProjectSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    def update(self, _id: int, data: Dict) -> Project:
-        return self._repository.update(_id, data)
+        user = request.user
+        data = request.data
+        data["user"] = user
+
+        project = self._repository.create(data)
+        serializer = OutputProjectSerializer(project)
+        return serializer.data
+
+    def update(self, request, project_id: int) -> Dict:
+        serializer = InputProjectSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        data = serializer.data
+
+        project = self._repository.update(project_id, data)
+        serializer = OutputProjectSerializer(project)
+        return serializer.data
 
     def delete(self, _id: int) -> None:
-        return self._repository.delete(_id)
+        self._repository.delete(_id)
 
-    def get_by_slug(self, slug: str) -> Optional[Project]:
-        return self._repository.get_by_slug(slug)
+    def get_by_slug(self, slug: str) -> Dict:
+        project = self._repository.get_by_slug(slug)
+        serializer = OutputProjectSerializer(project)
+        return serializer.data
 
-    def get_all(self) -> List[Optional[Project]]:
-        return self._repository.get_all()
+    def get_all(self) -> List[Dict]:
+        projects = self._repository.get_all()
+        serializer = OutputProjectSerializer(projects, many=True)
+        return serializer.data

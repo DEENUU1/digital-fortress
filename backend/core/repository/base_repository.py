@@ -1,5 +1,6 @@
 from typing import Any, Optional, List, Dict
 from rest_framework.exceptions import NotFound
+from user.models import UserAccount
 
 
 class CRUDRepository:

@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from core.repository.base_repository import CRUDRepository
 from ..models import Project
