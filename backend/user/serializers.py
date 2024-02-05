@@ -22,6 +22,14 @@ class InputUpdateUserAccountSerializer(ModelSerializer):
         )
 
 
+class InputOutputUserAccountSerializer(ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = (
+            "openai_key"
+        )
+
+
 class InputCreateUserAccountSerializer(ModelSerializer):
     class Meta:
         model = UserAccount

@@ -47,6 +47,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
+    openai_key = models.CharField(max_length=255, blank=True, null=True)
+
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'

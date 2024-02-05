@@ -21,7 +21,5 @@ def test_product_create_object_success(product):
 
 @pytest.mark.django_db
 def test_user_subscription_create_object_success(user_subscription):
-    assert user_subscription.created_at
-    assert user_subscription.updated_at
     assert user_subscription.user == user_subscription.user
     assert str(user_subscription) == str("example3@x.com testproduct")

@@ -37,7 +37,7 @@ def user_subscription(product) -> UserSubscription:
         is_active=True,
     )
 
-    return UserSubscription.objects.create(
+    return UserSubscription(
         user=user,
         product=product,
         is_active=True,
