@@ -21,28 +21,34 @@ class ProductService:
 
     def create_free_product(self) -> Product:
         product_price_repository = ProductPriceRepository()
-        
+        print(1)
         prices = []
         for idx, currency in enumerate(ProductPrice.CURRENCIES):
-            if not product_price_repository.price_exists(value=0, currecy=currency):
-                price = ProductPrice(value=0, currency=currency, price_id=idx)
+            if not product_price_repository.price_exists(value=0, currency="PLN"):
+                price = ProductPriceRepository().create(data={"value": 0, "currency": currency, "price_id": idx})
                 prices.append(price)
             else:
                 continue
-        
+        print(2)
         existing_product = self._repository.product_exists_by_name("Free")
         if not existing_product:
-            product = self._model(
-                name="Free",
-                description="This is a standard plan.",
-                max_project_storage=300,
-                num_of_projects=3,
-                is_active=True,
-                is_free=True
-            )
+            product = self._repository.create({
+                "name": "Free",
+                "description": "This is a standard plan.",
+                "max_project_storage": 300,
+                "num_of_projects": 3,
+                "is_active": True,
+                "is_free": True
+            })
+            print(3)
         else:
             product = self._repository.get_by_name("Free")
-        
-        product.price.set(prices)        
+        print(4)
+        for x in prices:
+            print(5)
+            product.price.add(x)
+            print(6)
+        print(7)
         product.save()
+        print(8)
         return product
