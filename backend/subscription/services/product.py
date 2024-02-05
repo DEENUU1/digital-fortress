@@ -1,6 +1,5 @@
-from ..models import Product
 from subscription.repository.product import ProductRepository
-from typing import List, Optional, Dict
+from typing import List, Dict
 from ..serializers import OutputProductSerializer
 
 
