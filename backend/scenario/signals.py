@@ -9,6 +9,7 @@ def create_slug(sender, instance, created, **kwargs):
     if created:
         transformed_title = SlugTransformer.transform(instance.title)
         instance.slug = f"{instance.id}-{transformed_title}"
+        instance.save()
 
 
 post_save.connect(create_slug, sender=Project)
