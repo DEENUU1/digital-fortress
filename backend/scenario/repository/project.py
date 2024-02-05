@@ -14,3 +14,6 @@ class ProjectRepository(CRUDRepository):
             return True
 
         return False
+
+    def num_of_user_projects(self, user) -> int:
+        return self._model.objects.filter(user=user).count()
