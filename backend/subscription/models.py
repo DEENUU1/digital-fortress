@@ -15,7 +15,7 @@ class ProductPrice(BaseModel):
     value = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, choices=CURRENCIES)
     price_id = models.CharField(max_length=250, unique=True)
-
+    
     class Meta:
         verbose_name = "Product price"
         verbose_name_plural = "Product prices"
@@ -31,7 +31,8 @@ class Product(BaseModel):
     max_project_storage = models.PositiveIntegerField()
     num_of_projects = models.PositiveIntegerField()
     is_active = models.BooleanField(default=True)
-
+    is_free = models.BooleanField(default=False)
+    
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = "Products"

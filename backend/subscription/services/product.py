@@ -8,8 +8,8 @@ class ProductService:
     def __init__(self, repository: ProductRepository):
         self._repository = repository
 
-    def get_by_id(self, id: int) -> Dict:
-        product = self._repository.get_by_id(id)
+    def get_by_id(self, _id: int) -> Dict:
+        product = self._repository.get_by_id(_id)
         serializer = OutputProductSerializer(product)
         return serializer.data
 

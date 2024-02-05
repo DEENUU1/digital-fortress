@@ -16,3 +16,6 @@ class ProductRepository(CRUDRepository):
 
     def exists_by_name(self, name: str) -> bool:
         return self._model.objects.filter(name=name).exists()
+
+    def get_product_with_zero_price(self) -> Product:
+        return self._model.objects.filter(is_free=True).first()
