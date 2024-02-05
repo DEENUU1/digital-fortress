@@ -8,9 +8,9 @@ class ScenarioRepository(CRUDRepository):
     def __init__(self):
         super().__init__(Scenario)
 
-    def get_root(self, project_id: int) -> Optional[Scenario]:
+    def get_root(self, project_id: int, user) -> Optional[Scenario]:
         try:
-            return self._model.objects.filter(project_id=project_id, parent_id__isnull=True).first()
+            return self._model.objects.filter(project_id=project_id, parent_id__isnull=True, user=user).first()
         except self._model.DoesNotExist:
             return None
 
@@ -23,3 +23,6 @@ class ScenarioRepository(CRUDRepository):
             current_scenario = current_scenario.parent_id
 
         return list(reversed(path))
+
+    def get_tree(self, project_id: int, user) -> List[Scenario]:
+        return self._model.objects.filter(project_id=project_id, user=user).order_by('parent_id')

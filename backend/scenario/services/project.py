@@ -1,7 +1,6 @@
 from typing import Dict, List
 
 from scenario.repository.project import ProjectRepository
-from user.models import UserAccount
 from ..serializers import OutputProjectSerializer, InputProjectSerializer
 
 
@@ -28,19 +27,19 @@ class ProjectService:
 
         data = serializer.data
 
-        project = self._repository.update(project_id, data)
+        project = self._repository.update(project_id, data, request.user)
         serializer = OutputProjectSerializer(project)
         return serializer.data
 
-    def delete(self, _id: int) -> None:
-        self._repository.delete(_id)
+    def delete(self, request, _id: int) -> None:
+        self._repository.delete(_id, request.user)
 
-    def get_by_slug(self, slug: str) -> Dict:
-        project = self._repository.get_by_slug(slug)
+    def get_by_id(self, request, _id: int) -> Dict:
+        project = self._repository.get_by_id(_id, request.user)
         serializer = OutputProjectSerializer(project)
         return serializer.data
 
-    def get_all(self) -> List[Dict]:
-        projects = self._repository.get_all()
+    def get_all(self, request) -> List[Dict]:
+        projects = self._repository.get_all(request.user)
         serializer = OutputProjectSerializer(projects, many=True)
         return serializer.data

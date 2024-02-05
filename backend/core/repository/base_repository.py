@@ -1,37 +1,35 @@
 from typing import Any, Optional, List, Dict
 from rest_framework.exceptions import NotFound
-from user.models import UserAccount
 
 
 class CRUDRepository:
 
-    def __init__(self, model, user: UserAccount = None):
+    def __init__(self, model):
         self._model = model
-        self._user = user
 
-    def get_all(self) -> List[Optional[Any]]:
-        if self._user:
-            return self._model.objects.filter(user=self._user)
+    def get_all(self, user=None) -> List[Optional[Any]]:
+        if user:
+            return self._model.objects.filter(user=user)
         else:
             return self._model.objects.all()
 
-    def get_by_id(self, _id: int) -> Optional[Any]:
+    def get_by_id(self, _id: int, user=None) -> Optional[Any]:
         if not self.exists(_id):
             raise NotFound(f"Object with id {_id} does not exist")
 
-        if self._user:
-            return self._model.objects.get(id=_id, user=self._user)
+        if user:
+            return self._model.objects.get(id=_id, user=user)
         else:
             return self._model.objects.get(id=_id)
 
     def create(self, data: Dict) -> Any:
         return self._model.objects.create(**data)
 
-    def update(self, _id: int, data: Dict) -> Optional[Any]:
-        if not self.exists(_id):
+    def update(self, _id: int, data: Dict, user=None) -> Optional[Any]:
+        if not self.exists(_id, user):
             raise NotFound(f"Object with id {_id} does not exist")
 
-        obj = self.get_by_id(_id)
+        obj = self.get_by_id(_id, user)
 
         if obj:
             for key, value in data.items():
@@ -40,17 +38,17 @@ class CRUDRepository:
             return obj
         return None
 
-    def delete(self, _id: int) -> None:
-        if not self.exists(_id):
+    def delete(self, _id: int, user=None) -> None:
+        if not self.exists(_id, user):
             raise NotFound(f"Object with id {_id} does not exist")
-        obj = self.get_by_id(_id)
+        obj = self.get_by_id(_id, user)
         if obj:
             obj.delete()
             return None
         return None
 
-    def exists(self, _id: int) -> bool:
-        if self._user:
-            return self._model.objects.filter(id=_id, user=self._user).exists()
+    def exists(self, _id: int, user=None) -> bool:
+        if user:
+            return self._model.objects.filter(id=_id, user=user).exists()
         else:
             return self._model.objects.filter(id=_id).exists()

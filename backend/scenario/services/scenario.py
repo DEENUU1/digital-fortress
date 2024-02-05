@@ -1,6 +1,6 @@
-from ..models import Scenario
 from scenario.repository.scenario import ScenarioRepository
-from typing import Dict, Optional, List
+from scenario.repository.project import ProjectRepository
+from typing import Dict, List
 from ..serializers import OutputScenarioSerializer, InputScenarioSerializer
 
 
@@ -16,21 +16,19 @@ class ScenarioService:
         data = serializer.data
         data["user"] = request.user
 
+        data["project"] = ProjectRepository().get_by_id(data["project"], request.user)
+        data["parent_id"] = self._repository.get_by_id(data["parent_id"], request.user)
+
         scenario = self._repository.create(data)
         serializer = OutputScenarioSerializer(scenario)
         return serializer.data
 
-    def delete(self, _id: int) -> None:
-        self._repository.delete(_id)
+    def delete(self, request, _id: int) -> None:
+        self._repository.delete(_id, request.user)
 
-    def get_all(self) -> List[Dict]:
-        scenario = self._repository.get_all()
+    def get_all(self, request, project_id: int) -> List[Dict]:
+        scenario = self._repository.get_tree(project_id, request.user)
         serializer = OutputScenarioSerializer(scenario, many=True)
-        return serializer.data
-
-    def get_root(self, project_id: int) -> Dict:
-        scenario = self._repository.get_root(project_id)
-        serializer = OutputScenarioSerializer(scenario)
         return serializer.data
 
     def get_full_path(self, _id: int) -> List[Dict]:
@@ -38,11 +36,11 @@ class ScenarioService:
         serializer = OutputScenarioSerializer(scenario, many=True)
         return serializer.data
 
-    def has_root(self, project_id: int) -> bool:
-        root = self.get_root(project_id)
+    def has_root(self, request, project_id: int) -> bool:
+        root = self._repository.get_root(project_id, request.user)
         return root is not None
 
-    def get_by_id(self, _id: int) -> Dict:
-        scenario = self._repository.get_by_id(_id)
+    def get_by_id(self, request, _id: int) -> Dict:
+        scenario = self._repository.get_by_id(_id, request.user)
         serializer = OutputScenarioSerializer(scenario)
         return serializer.data
