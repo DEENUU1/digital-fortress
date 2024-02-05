@@ -1,4 +1,4 @@
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
 from django.urls import path
 from .views import UserAccountMeAPI, UserRegisterAPIView
 
@@ -6,6 +6,7 @@ from .views import UserAccountMeAPI, UserRegisterAPIView
 urlpatterns_jwt = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/logout/', TokenBlacklistView.as_view(), name='logout'),
 ]
 
 urlpatterns_user = [
