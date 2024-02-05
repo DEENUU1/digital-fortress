@@ -23,6 +23,3 @@ class ProjectService:
 
     def get_all(self) -> List[Optional[Project]]:
         return self._repository.get_all()
-
-    def has_root_scenario(self, _id: int) -> bool:
-        return self._repository.has_root(_id)

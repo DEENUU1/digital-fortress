@@ -11,12 +11,18 @@ class ScenarioService:
     def create(self, data: Dict):
         return self._repository.create(data)
 
-    def update(self, _id: int, data: Dict) -> Scenario:
-        return self._repository.update(_id, data)
-
     def delete(self, _id: int) -> None:
         return self._repository.delete(_id)
 
     def get_all(self) -> List[Optional[Scenario]]:
         return self._repository.get_all()
 
+    def get_root(self, project_id: int) -> Optional[Scenario]:
+        return self._repository.get_root(project_id)
+
+    def get_full_path(self, _id: int) -> List[Optional[Scenario]]:
+        return self._repository.get_full_path(_id)
+
+    def has_root(self, project_id: int) -> bool:
+        root = self.get_root(project_id)
+        return root is not None

@@ -1,7 +1,7 @@
 from typing import Optional
 
 from core.repository.base_repository import CRUDRepository
-from ..models import Project, Scenario
+from ..models import Project
 
 
 class ProjectRepository(CRUDRepository):
@@ -22,7 +22,3 @@ class ProjectRepository(CRUDRepository):
             return True
 
         return False
-
-    @staticmethod
-    def has_root(_id: int) -> bool:
-        return Scenario.objects.filter(project_id=_id, parent_id=None).exists()

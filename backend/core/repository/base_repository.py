@@ -1,11 +1,10 @@
 from typing import Any, Optional, List, Dict
-from django.db import models
 from rest_framework.exceptions import NotFound
 
 
 class CRUDRepository:
 
-    def __init__(self, model: models.Model):
+    def __init__(self, model):
         self._model = model
 
     def get_all(self) -> List[Optional[Any]]:
