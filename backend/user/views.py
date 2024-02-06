@@ -12,8 +12,12 @@ from rest_framework_simplejwt.views import (
 )
 
 from .repository.user import UserAccountRepository
-from .serializers import InputUpdateUserAccountSerializer, InputCreateUserAccountSerializer
 from .services.user import UserAccountService
+from .serializers import (
+    OutputUserAccountSerializer,
+    InputCreateUserAccountSerializer,
+    InputUpdateUserAccountSerializer,
+)
 
 
 class UserRegisterAPIView(APIView):
@@ -22,8 +26,10 @@ class UserRegisterAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Create new user account", request_body=InputCreateUserAccountSerializer)
     def post(self, request):
-        user = self._service.create(data=request.data)
-        return Response(user, status=status.HTTP_201_CREATED)
+        serializer = InputCreateUserAccountSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.create(data=request.data)
+        return Response(OutputUserAccountSerializer(instance).data, status=status.HTTP_201_CREATED)
 
 
 class UserAccountMeAPI(APIView):
@@ -31,13 +37,15 @@ class UserAccountMeAPI(APIView):
     _service = UserAccountService(UserAccountRepository())
 
     def get(self, request):
-        user = self._service.get(user_id=request.user.id)
-        return Response(user, status=status.HTTP_200_OK)
+        instance = self._service.get(user_id=request.user.id)
+        return Response(OutputUserAccountSerializer(instance).data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(operation_description="Update user", request_body=InputUpdateUserAccountSerializer)
     def put(self, request):
-        user = self._service.update(user_id=request.user.id, data=request.data)
-        return Response(user, status=status.HTTP_200_OK)
+        serializer = InputUpdateUserAccountSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.update(user_id=request.user.id, data=request.data)
+        return Response(OutputUserAccountSerializer(instance).data, status=status.HTTP_200_OK)
 
 
 class CustomProviderAuthView(ProviderAuthView):

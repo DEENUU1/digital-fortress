@@ -7,7 +7,12 @@ from .repository import project as project_repo, scenario as scenario_repo
 from .services import project as project_service, scenario as scenario_service
 from .permissions import IsOwner
 from drf_yasg.utils import swagger_auto_schema
-from .serializers import InputProjectSerializer, InputScenarioSerializer
+from .serializers import (
+    InputProjectSerializer,
+    InputScenarioSerializer,
+    OutputScenarioSerializer,
+    OutputProjectSerializer
+)
 
 
 class ProjectListCreateAPIView(APIView):
@@ -15,13 +20,15 @@ class ProjectListCreateAPIView(APIView):
     _service = project_service.ProjectService(project_repo.ProjectRepository())
 
     def get(self, request):
-        projects = self._service.get_all(request)
-        return Response(projects, status=status.HTTP_200_OK)
+        instance = self._service.get_all(request)
+        return Response(OutputProjectSerializer(instance, many=True).data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(operation_description="Create new project", request_body=InputProjectSerializer)
     def post(self, request):
-        project = self._service.create(request.data, request.user)
-        return Response(project, status=status.HTTP_201_CREATED)
+        serializer = InputProjectSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.create(serializer.validated_data, request.user)
+        return Response(OutputProjectSerializer(instance).data, status=status.HTTP_201_CREATED)
 
 
 class ProjectDetailDeleteUpdateAPIView(APIView):
@@ -29,8 +36,8 @@ class ProjectDetailDeleteUpdateAPIView(APIView):
     _service = project_service.ProjectService(project_repo.ProjectRepository())
 
     def get(self, request, pk: int):
-        project = self._service.get_by_id(request.user, pk)
-        return Response(project, status=status.HTTP_200_OK)
+        instance = self._service.get_by_id(request.user, pk)
+        return Response(OutputProjectSerializer(instance).data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk: int):
         self._service.delete(request.user, pk)
@@ -38,8 +45,10 @@ class ProjectDetailDeleteUpdateAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Update project", request_body=InputProjectSerializer)
     def put(self, request, pk: int):
-        project = self._service.update(request.data, pk, request.user)
-        return Response(project, status=status.HTTP_200_OK)
+        serializer = InputProjectSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.update(serializer.validated_data, pk, request.user)
+        return Response(OutputProjectSerializer(instance).data, status=status.HTTP_200_OK)
 
 
 class ScenarioCreateAPIView(APIView):
@@ -48,8 +57,10 @@ class ScenarioCreateAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Create new scenario", request_body=InputScenarioSerializer)
     def post(self, request):
-        scenario = self._service.create(request.data, request.user)
-        return Response(scenario, status=status.HTTP_201_CREATED)
+        serializer = InputScenarioSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.create(serializer.validated_data)
+        return Response(OutputScenarioSerializer(instance).data, status=status.HTTP_201_CREATED)
 
 
 class ScenarioTreeAPIView(APIView):
@@ -57,8 +68,8 @@ class ScenarioTreeAPIView(APIView):
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
     def get(self, request, project_id: int):
-        tree = self._service.get_all(request.user, project_id)
-        return Response(tree, status=status.HTTP_200_OK)
+        instances = self._service.get_all(request.user, project_id)
+        return Response(OutputScenarioSerializer(instances, many=True).data, status=status.HTTP_200_OK)
 
 
 class ScenarioDetailDeleteAPIView(APIView):
@@ -66,8 +77,8 @@ class ScenarioDetailDeleteAPIView(APIView):
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
     def get(self, request, pk: int):
-        scenario = self._service.get_by_id(request.user, pk)
-        return Response(scenario, status=status.HTTP_200_OK)
+        instance = self._service.get_by_id(request.user, pk)
+        return Response(OutputScenarioSerializer(instance).data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk: int):
         self._service.delete(request.user, pk)

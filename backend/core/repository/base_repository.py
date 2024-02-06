@@ -22,7 +22,7 @@ class CRUDRepository:
         else:
             return self._model.objects.get(id=_id)
 
-    def create(self, data: Dict) -> Any:
+    def create(self, data) -> Any:
         return self._model.objects.create(**data)
 
     def update(self, _id: int, data: Dict, user=None) -> Optional[Any]:

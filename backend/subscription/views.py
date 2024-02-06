@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from .services import user_subscription as user_subscription_service, product as product_service
 from .repository import user_subscription as user_subscription_repo, product as product_repo
+from .serializers import OutputProductSerializer
 
 
 class ProductListView(APIView):
@@ -11,8 +12,8 @@ class ProductListView(APIView):
     _service = product_service.ProductService(product_repo.ProductRepository())
 
     def get(self, request):
-        products = self._service.get_all()
-        return Response(products, status=status.HTTP_200_OK)
+        instance = self._service.get_all()
+        return Response(OutputProductSerializer(instance, many=True).data, status=status.HTTP_200_OK)
 
 
 class ProductDetailView(APIView):
@@ -20,8 +21,8 @@ class ProductDetailView(APIView):
     _service = product_service.ProductService(product_repo.ProductRepository())
 
     def get(self, request, product_id: int):
-        product = self._service.get_by_id(product_id)
-        return Response(product, status=status.HTTP_200_OK)
+        instance = self._service.get_by_id(product_id)
+        return Response(OutputProductSerializer(instance).data, status=status.HTTP_200_OK)
 
 
 class UserSubscriptionGetView(APIView):
@@ -29,5 +30,5 @@ class UserSubscriptionGetView(APIView):
     _service = user_subscription_service.UserSubscriptionService(user_subscription_repo.UserSubscriptionRepository())
 
     def get(self, request):
-        product = self._service.get_user_subscription(request.user.id)
-        return Response(product, status=status.HTTP_200_OK)
+        instance = self._service.get_user_subscription(request.user.id)
+        return Response(OutputProductSerializer(instance).data, status=status.HTTP_200_OK)

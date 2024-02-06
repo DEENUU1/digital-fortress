@@ -6,7 +6,7 @@ from .models import Project, Scenario
 class InputProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
-        fields = ("id", "title")
+        fields = ("id", "title", "user")
 
 
 class OutputProjectSerializer(ModelSerializer):
@@ -28,7 +28,7 @@ class OutputProjectSerializer(ModelSerializer):
 class InputScenarioSerializer(ModelSerializer):
     class Meta:
         model = Scenario
-        fields = ("parent_id", "project", "user_details")
+        fields = ("parent_id", "project", "user_details", "user")
 
 
 class OutputScenarioSerializer(ModelSerializer):
