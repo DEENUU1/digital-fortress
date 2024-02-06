@@ -2,6 +2,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import Provider from "@/redux/provider";
 import Setup from "@/components/utils/Setup";
+
 interface IProps {
   children: ReactNode;
 }
