@@ -17,22 +17,18 @@ class UserAccountService:
         serializer = OutputUserAccountSerializer(user)
         return serializer.data
 
-    def update(self, user_id: int, request) -> Dict:
-        serializer = InputUpdateUserAccountSerializer(data=request.data)
+    def update(self, user_id: int, data) -> Dict:
+        serializer = InputUpdateUserAccountSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
-        data = serializer.data
-
-        user = self._repository.update(_id=user_id, data=data)
+        user = self._repository.update(_id=user_id, data=serializer.data)
         serializer = OutputUserAccountSerializer(user)
         return serializer.data
 
-    def create(self, request) -> Dict:
-        serializer = InputCreateUserAccountSerializer(data=request.data)
+    def create(self, data) -> Dict:
+        serializer = InputCreateUserAccountSerializer(data=data)
         serializer.is_valid(raise_exception=True)
 
-        data = serializer.data
-
-        user = self._repository.create(data)
+        user = self._repository.create(serializer.data)
         serializer = OutputUserAccountSerializer(user)
         return serializer.data

@@ -22,7 +22,7 @@ class UserRegisterAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Create new user account", request_body=InputCreateUserAccountSerializer)
     def post(self, request):
-        user = self._service.create(request=request)
+        user = self._service.create(data=request.data)
         return Response(user, status=status.HTTP_201_CREATED)
 
 
@@ -36,7 +36,7 @@ class UserAccountMeAPI(APIView):
 
     @swagger_auto_schema(operation_description="Update user", request_body=InputUpdateUserAccountSerializer)
     def put(self, request):
-        user = self._service.update(user_id=request.user.id, request=request)
+        user = self._service.update(user_id=request.user.id, data=request.data)
         return Response(user, status=status.HTTP_200_OK)
 
 
