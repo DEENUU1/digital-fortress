@@ -4,6 +4,7 @@ from ..serializers import OutputProductSerializer
 from subscription.repository.product_price import ProductPriceRepository
 from ..models import ProductPrice, Product
 
+
 class ProductService:
 
     def __init__(self, repository: ProductRepository):

@@ -20,7 +20,7 @@ class ProjectListCreateAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Create new project", request_body=InputProjectSerializer)
     def post(self, request):
-        project = self._service.create(request)
+        project = self._service.create(request.data, request.user)
         return Response(project, status=status.HTTP_201_CREATED)
 
 
@@ -29,16 +29,16 @@ class ProjectDetailDeleteUpdateAPIView(APIView):
     _service = project_service.ProjectService(project_repo.ProjectRepository())
 
     def get(self, request, pk: int):
-        project = self._service.get_by_id(request, pk)
+        project = self._service.get_by_id(request.user, pk)
         return Response(project, status=status.HTTP_200_OK)
 
     def delete(self, request, pk: int):
-        self._service.delete(request, pk)
+        self._service.delete(request.user, pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @swagger_auto_schema(operation_description="Update project", request_body=InputProjectSerializer)
     def put(self, request, pk: int):
-        project = self._service.update(request, pk)
+        project = self._service.update(request.data, pk, request.user)
         return Response(project, status=status.HTTP_200_OK)
 
 
@@ -48,7 +48,7 @@ class ScenarioCreateAPIView(APIView):
 
     @swagger_auto_schema(operation_description="Create new scenario", request_body=InputScenarioSerializer)
     def post(self, request):
-        scenario = self._service.create(request)
+        scenario = self._service.create(request.data, request.user)
         return Response(scenario, status=status.HTTP_201_CREATED)
 
 
@@ -57,7 +57,7 @@ class ScenarioTreeAPIView(APIView):
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
     def get(self, request, project_id: int):
-        tree = self._service.get_all(request, project_id)
+        tree = self._service.get_all(request.user, project_id)
         return Response(tree, status=status.HTTP_200_OK)
 
 
@@ -66,11 +66,11 @@ class ScenarioDetailDeleteAPIView(APIView):
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
     def get(self, request, pk: int):
-        scenario = self._service.get_by_id(request, pk)
+        scenario = self._service.get_by_id(request.user, pk)
         return Response(scenario, status=status.HTTP_200_OK)
 
     def delete(self, request, pk: int):
-        self._service.delete(request, pk)
+        self._service.delete(request.user, pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -79,7 +79,7 @@ class ScenarioHasRootAPIView(APIView):
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
     def get(self, request, project_id: int):
-        root = self._service.has_root(request, project_id)
+        root = self._service.has_root(request.user, project_id)
         if root:
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_404_NOT_FOUND)
