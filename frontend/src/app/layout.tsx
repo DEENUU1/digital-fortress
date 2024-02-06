@@ -2,6 +2,8 @@ import "./globals.css";
 import { ReactNode } from "react";
 import Provider from "@/redux/provider";
 import Setup from "@/components/utils/Setup";
+import Header from "@/components/layout/Header"
+import Footer from "@/components/layout/Footer"
 
 interface IProps {
   children: ReactNode;
@@ -13,9 +15,9 @@ export default function RootLayout({ children }: IProps) {
         <Provider>
           <Setup />
 
-          {/*<Navbar />*/}
+          <Header />
           {children}
-          {/*<Footer />*/}
+          <Footer/>
         </Provider>
       </body>
     </html>
