@@ -1,7 +1,7 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import Provider from "./Provider";
-
+import Provider from "@/redux/provider";
+import Setup from "@/components/utils/Setup";
 interface IProps {
   children: ReactNode;
 }
@@ -10,7 +10,11 @@ export default function RootLayout({ children }: IProps) {
     <html lang="en">
       <body>
         <Provider>
-          <div className={"  min-h-screen "}>{children}</div>
+          <Setup />
+
+          {/*<Navbar />*/}
+          {children}
+          {/*<Footer />*/}
         </Provider>
       </body>
     </html>
