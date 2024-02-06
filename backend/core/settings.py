@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
+    'corsheaders',
 
     # Build in
     'django.contrib.admin',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,6 +85,20 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
+
+AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_PATH = '/'
+AUTH_COOKIE_SECURE = True
+AUTH_COOKIE_HTTP_ONLY = True
+AUTH_COOKIE_SAMESITE = "None"
+
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000",]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = ["http://localhost:3000", ]
+# CSRF_TRUSTED_ORIGINS = ["https://kwlodarczyk.pro"]
 
 AUTH_USER_MODEL = 'user.UserAccount'
 
