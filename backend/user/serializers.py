@@ -10,6 +10,7 @@ class OutputUserAccountSerializer(ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "openai_key",
         )
 
 
@@ -19,13 +20,6 @@ class InputUpdateUserAccountSerializer(ModelSerializer):
         fields = (
             "first_name",
             "last_name",
-        )
-
-
-class InputOutputUserAccountSerializer(ModelSerializer):
-    class Meta:
-        model = UserAccount
-        fields = (
             "openai_key"
         )
 

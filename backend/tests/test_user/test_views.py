@@ -22,6 +22,7 @@ def test_user_account_me_get_authenticated_success(user_active: UserAccount) -> 
         "first_name": user_active.first_name,
         "last_name": user_active.last_name,
         "email": user_active.email,
+        "openai_key": None
     }
 
 

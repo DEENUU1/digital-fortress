@@ -3,7 +3,7 @@ from typing import Dict
 from ..serializers import (
     OutputUserAccountSerializer,
     InputCreateUserAccountSerializer,
-    InputUpdateUserAccountSerializer
+    InputUpdateUserAccountSerializer,
 )
 
 
