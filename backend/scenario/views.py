@@ -16,11 +16,11 @@ from .serializers import (
 
 
 class ProjectListCreateAPIView(APIView):
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated]
     _service = project_service.ProjectService(project_repo.ProjectRepository())
 
     def get(self, request):
-        instance = self._service.get_all(request)
+        instance = self._service.get_all(request.user)
         return Response(OutputProjectSerializer(instance, many=True).data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(operation_description="Create new project", request_body=InputProjectSerializer)

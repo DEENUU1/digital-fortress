@@ -14,7 +14,7 @@ const authApiSlice = apiSlice.injectEndpoints({
 		}),
 		login: builder.mutation({
 			query: ({ email, password }) => ({
-				url: '/user/token/login/',
+				url: '/user/jwt/create/',
 				method: 'POST',
 				body: { email, password },
 			}),
@@ -26,22 +26,21 @@ const authApiSlice = apiSlice.injectEndpoints({
 				email,
 				password,
 				re_password,
-				account_type,
 			}) => ({
 				url: '/user/register/',
 				method: 'POST',
-				body: { first_name, last_name, email, password, re_password, account_type},
+				body: { first_name, last_name, email, password, re_password},
 			}),
 		}),
 		verify: builder.mutation({
 			query: () => ({
-				url: '/user/token/verify/',
+				url: '/user/jwt/verify/',
 				method: 'POST',
 			}),
 		}),
 		logout: builder.mutation({
 			query: () => ({
-				url: '/user/token/verify/',
+				url: '/user/logout/',
 				method: 'POST',
 			}),
 		}),

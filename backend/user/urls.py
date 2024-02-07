@@ -9,10 +9,10 @@ from .views import (
 )
 
 urlpatterns_jwt = [
-    path('token/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
-    path('token/verify/', CustomTokenVerifyView.as_view(), name='token_verify'),
-    path('token/logout/', LogoutView.as_view(), name='logout'),
+    path('jwt/create/', CustomTokenObtainPairView.as_view()),
+    path('jwt/refresh/', CustomTokenRefreshView.as_view()),
+    path('jwt/verify/', CustomTokenVerifyView.as_view()),
+    path('logout/', LogoutView.as_view()),
 ]
 
 urlpatterns_user = [

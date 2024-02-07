@@ -1,7 +1,25 @@
-import Link from "next/link";
+'use client';
 
+import Link from "next/link";
+import {useAppDispatch, useAppSelector} from '@/redux/hooks';
+import {useLogoutMutation} from '@/redux/features/authApiSlice';
+import {logout as setLogout} from '@/redux/features/authSlice';
 
 export default function Header() {
+	const dispatch = useAppDispatch();
+	const [logout] = useLogoutMutation();
+
+	const {isAuthenticated} = useAppSelector(state => state.auth);
+
+	const handleLogout = () => {
+		logout(undefined)
+			.unwrap()
+			.then(() => {
+				dispatch(setLogout());
+			});
+	};
+
+
 	return (
 		<>
 			<header className="bg-white shadow-gray-800/50 shadow-sm ">
@@ -33,28 +51,53 @@ export default function Header() {
 							Pricing
 						</Link>
 						<Link
-							href={"/"}
+							href={"/dupa"}
 							className={
 								"px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative hover:bg-gray-200 hover:bg-opacity-25"
 							}
 						>
-							Testimonial
+							Projects
 						</Link>
 					</ul>
-					<div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
-						<Link
-							href="/"
-							className="text-gray-800 border-solid border-black rounded-xl p-1 border-2 hover:text-white hover:bg-black mx-2 sm:mx-4 capitalize tracking-wide transition-all"
-						>
-							Sign In
-						</Link>
-						<Link
-							href={"/"}
-							className="text-white border-solid border-blue-600 rounded-xl p-1 border-2 bg-blue-600 hover:bg-blue-700 tracking-wide transition-all"
-						>
-							Sign Up
-						</Link>
-					</div>
+
+					{isAuthenticated ? (
+						<>
+							<div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
+								<Link
+									href="/"
+									className="text-gray-800 border-solid border-black rounded-xl p-1 border-2 hover:text-white hover:bg-black mx-2 sm:mx-4 capitalize tracking-wide transition-all"
+								>
+									Profile
+								</Link>
+								<Link
+									onClick={handleLogout}
+									href={"/"}
+									className="text-white border-solid border-blue-600 rounded-xl p-1 border-2 bg-blue-600 hover:bg-blue-700 tracking-wide transition-all"
+								>
+									Logout
+								</Link>
+							</div>
+						</>
+					) : (
+						<>
+							<div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
+								<Link
+									href="/auth/login/"
+									className="text-gray-800 border-solid border-black rounded-xl p-1 border-2 hover:text-white hover:bg-black mx-2 sm:mx-4 capitalize tracking-wide transition-all"
+								>
+									Sign In
+								</Link>
+								<Link
+									href={"/auth/register/"}
+									className="text-white border-solid border-blue-600 rounded-xl p-1 border-2 bg-blue-600 hover:bg-blue-700 tracking-wide transition-all"
+								>
+									Sign Up
+								</Link>
+							</div>
+						</>
+					)
+					}
+
 				</nav>
 			</header>
 			{/* Mobile Navigation */}
