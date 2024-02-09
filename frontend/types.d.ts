@@ -11,3 +11,13 @@ type ProjectResponse = {
     updated_at: string;
 };
 
+
+type ScenarioResponse = {
+    id: number;
+    parent_id?: number | null;
+    response?: number | null;
+    user_details?: string | null;
+    user: number;
+    created_at: string;
+    updated_at: string;
+}

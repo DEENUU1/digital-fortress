@@ -2,24 +2,17 @@
 
 import React, {useEffect, useState} from "react";
 import {Tree, TreeNode} from 'react-organizational-chart';
+import Node from "@/components/projects/scenario/Node";
 
 interface PageParams {
 	slug: string;
 }
 
-interface ResponseData {
-	id: number;
-	parent_id: number | null;
-	response: string;
-	user_details: string;
-	user: number;
-	created_at: string;
-	updated_at: string;
-}
+
 
 export function getTree(projectSlug: string) {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const [tree, setTree] = useState<ResponseData[]>([]);
+	const [tree, setTree] = useState<ScenarioResponse[]>([]);
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
@@ -33,47 +26,52 @@ export function getTree(projectSlug: string) {
 	return tree
 }
 
-function constructTree(data: ResponseData[]) {
-    const map = new Map<number, ResponseData>();
-    const rootNodes: ResponseData[] = [];
+function constructTree(data: ScenarioResponse[]) {
+	const map = new Map<number, ScenarioResponse>();
+	const rootNodes: ScenarioResponse[] = [];
 
-    data.forEach(node => {
-        map.set(node.id, node);
-        node.children = [];
-    });
+	data.forEach(node => {
+		map.set(node.id, node);
+		node.children = [];
+	});
 
-    data.forEach(node => {
-        const parent = map.get(node.parent_id || 0);
-        if (parent) {
-            parent.children.push(node);
-        } else {
-            rootNodes.push(node);
-        }
-    });
+	data.forEach(node => {
+		const parent = map.get(node.parent_id || 0);
+		if (parent) {
+			parent.children.push(node);
+		} else {
+			rootNodes.push(node);
+		}
+	});
 
-    return rootNodes;
+	return rootNodes;
 }
 
 
-export default function Page({ params }: { params: PageParams }) {
-    const slug = params.slug;
-    const treeData: ResponseData[] = getTree(slug);
-    const tree = constructTree(treeData);
+export default function Page({params}: { params: PageParams }) {
+	const treeData: ScenarioResponse[] = getTree(params.slug);
+	const tree = constructTree(treeData);
 
-    const renderTreeNodes = (nodes: ResponseData[] | undefined) => {
-        if (!nodes) return null;
-        return nodes.map(node => (
-            <TreeNode key={node.id} label={<div>{node.id}</div>}>
-                {renderTreeNodes(node.children)}
-            </TreeNode>
-        ));
-    };
+	const renderTreeNodes = (nodes: ScenarioResponse[] | undefined) => {
+		if (!nodes) return null;
+		return nodes.map(node => (
+			<TreeNode key={node.id} label={<Node data={node}></Node>}>
+				{renderTreeNodes(node.children)}
+			</TreeNode>
+		));
+	};
 
-    return (
-        <main>
-            <Tree label={<div>Root</div>}>
-                {renderTreeNodes(tree)}
-            </Tree>
-        </main>
-    );
+	if (treeData.length <= 0) {
+		return <div>Create root tree</div>
+	} else {
+		return (
+			<main>
+				<Tree label={<div>Root</div>}>
+					{renderTreeNodes(tree)}
+				</Tree>
+			</main>
+		);
+	}
+
+
 }
