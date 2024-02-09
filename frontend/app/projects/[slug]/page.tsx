@@ -1,49 +1,13 @@
 'use client';
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Tree, TreeNode} from 'react-organizational-chart';
 import Node from "@/components/projects/scenario/Node";
+import getTree from "@/components/projects/scenario/getTree";
+import constructTree from "@/components/projects/scenario/constructTree";
 
 interface PageParams {
 	slug: string;
-}
-
-
-export function getTree(projectSlug: string) {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const [tree, setTree] = useState<ScenarioResponse[]>([]);
-
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	useEffect(() => {
-		fetch(process.env.API_URL + `api/v1/scenario/tree/${projectSlug}`, {
-			credentials: "include"
-		})
-			.then(response => response.json())
-			.then(data => setTree(data));
-	}, [projectSlug]);
-
-	return tree
-}
-
-function constructTree(data: ScenarioResponse[]) {
-	const map = new Map<number, ScenarioResponse>();
-	const rootNodes: ScenarioResponse[] = [];
-
-	data.forEach(node => {
-		map.set(node.id, node);
-		node.children = [];
-	});
-
-	data.forEach(node => {
-		const parent = map.get(node.parent_id || 0);
-		if (parent) {
-			parent.children.push(node);
-		} else {
-			rootNodes.push(node);
-		}
-	});
-
-	return rootNodes;
 }
 
 
@@ -71,6 +35,4 @@ export default function Page({params}: { params: PageParams }) {
 			</main>
 		);
 	}
-
-
 }
