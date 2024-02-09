@@ -9,7 +9,6 @@ interface PageParams {
 }
 
 
-
 export function getTree(projectSlug: string) {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const [tree, setTree] = useState<ScenarioResponse[]>([]);

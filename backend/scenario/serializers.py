@@ -38,6 +38,7 @@ class OutputScenarioSerializer(ModelSerializer):
             "id",
             "parent_id",
             "response",
+            "project",
             "user_details",
             "user",
             "created_at",

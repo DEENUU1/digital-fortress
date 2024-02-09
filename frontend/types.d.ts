@@ -15,6 +15,7 @@ type ProjectResponse = {
 type ScenarioResponse = {
     id: number;
     parent_id?: number | null;
+    project: number;
     response?: number | null;
     user_details?: string | null;
     user: number;
