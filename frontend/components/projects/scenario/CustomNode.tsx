@@ -1,26 +1,26 @@
-import { Handle, Position } from 'reactflow';
+import {Handle, Position} from 'reactflow';
 
+export function ChildNode({data}: { data: any }) {
 
-export function ChildNode() {
-
-  return (
-    <>
-      <Handle type="target" position={Position.Top} />
-      <div className="bg-black">
-        <button className="text-white">Create</button>
-        <p className="text-white">Some text here</p>
-      </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
-    </>
-  );
+	return (
+		<>
+			<Handle type="target" position={Position.Top}/>
+			<div className="bg-black">
+				<button className="text-white">Create</button>
+				<p className="text-white">xxx</p>
+			</div>
+			<Handle type="source" position={Position.Bottom} id="a"/>
+		</>
+	);
 }
 
 export function RootNode() {
-  return (
-    <>
-      <div className="bg-black">
-        <button className="text-white">Create</button>
-      </div>
-    </>
-  )
+	return (
+		<>
+			<div className="bg-black">
+				<button className="text-white">Create</button>
+			</div>
+			<Handle type="source" position={Position.Bottom} id="a"/>
+		</>
+	)
 }
