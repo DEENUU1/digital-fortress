@@ -27,10 +27,10 @@ export default function Page({params}: { params: PageParams }) {
 
 	if (treeData.length <= 0) {
 		return (
-			<>
+			<main>
 				<h2>Create root tree</h2>
 				<ModalCreateScenario parent_id={null} project_id={params.id}></ModalCreateScenario>
-			</>
+			</main>
 		)
 	} else {
 		return (
