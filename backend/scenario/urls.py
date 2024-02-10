@@ -16,7 +16,7 @@ urlpatterns_project = [
 
 urlpatterns_scenario = [
     path("scenario/", ScenarioCreateAPIView.as_view(), name="scenario_create"),
-    path("scenario/tree/<str:project_slug>/", ScenarioTreeAPIView.as_view(), name="scenario_tree"),
+    path("scenario/tree/<int:project_id>/", ScenarioTreeAPIView.as_view(), name="scenario_tree"),
     path("scenario/<int:pk>/", ScenarioDetailDeleteAPIView.as_view(), name="scenario_delete_detail"),
     path("scenario/<int:project_id>/root/", ScenarioHasRootAPIView.as_view(), name="scenario_has_root"),
 ]

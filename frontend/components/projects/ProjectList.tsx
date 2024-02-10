@@ -25,7 +25,7 @@ export default async function ProjectList() {
 				<p>You don not have any saved offers</p>
 			) : (
 				projects.map((project: ProjectResponse) => (
-					<ProjectCard key={project.id} title={project.title} slug={project.slug} created_at={project.created_at} />
+					<ProjectCard key={project.id} title={project.title} id={project.id} created_at={project.created_at} />
 					// <div key={project.id}><h1>{project.title}</h1></div>
 				))
 			)}

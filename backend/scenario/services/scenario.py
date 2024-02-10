@@ -15,8 +15,8 @@ class ScenarioService:
     def delete(self, user, _id: int) -> None:
         self._repository.delete(_id, user)
 
-    def get_all(self, user, project_slug: str):
-        return self._repository.get_tree(project_slug, user)
+    def get_all(self, user, project_id: int):
+        return self._repository.get_tree(project_id, user)
 
     def has_root(self, user, project_id: int) -> bool:
         root = self._repository.get_root(project_id, user)

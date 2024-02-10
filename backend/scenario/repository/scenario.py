@@ -24,5 +24,5 @@ class ScenarioRepository(CRUDRepository):
 
         return list(reversed(path))
 
-    def get_tree(self, project_slug: str, user) -> List[Scenario]:
-        return self._model.objects.filter(project__slug=project_slug, user=user).order_by('parent_id')
+    def get_tree(self, project_id: int, user) -> List[Scenario]:
+        return self._model.objects.filter(project__id=project_id, user=user).order_by('parent_id')

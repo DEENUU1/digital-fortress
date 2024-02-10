@@ -14,7 +14,7 @@ import {useRetrieveUserQuery} from '@/redux/features/authApiSlice';
 import {toast} from 'react-toastify';
 
 
-export default function ModalCreateScenario({parent_id, project_id}: { parent_id: number, project_id: number }) {
+export default function ModalCreateScenario({parent_id, project_id}: { parent_id: number | null, project_id: number }) {
 	const {isOpen, onOpen, onOpenChange} = useDisclosure();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [useDetails, setUserDetails] = useState<string | null>();

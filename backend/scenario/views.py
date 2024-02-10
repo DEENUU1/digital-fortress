@@ -67,8 +67,8 @@ class ScenarioTreeAPIView(APIView):
     permission_classes = [IsAuthenticated]
     _service = scenario_service.ScenarioService(scenario_repo.ScenarioRepository())
 
-    def get(self, request, project_slug: str):
-        instances = self._service.get_all(request.user, project_slug)
+    def get(self, request, project_id: int):
+        instances = self._service.get_all(request.user, project_id)
         return Response(OutputScenarioSerializer(instances, many=True).data, status=status.HTTP_200_OK)
 
 
