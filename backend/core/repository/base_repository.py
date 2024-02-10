@@ -9,9 +9,9 @@ class CRUDRepository:
 
     def get_all(self, user=None) -> List[Optional[Any]]:
         if user:
-            return self._model.objects.filter(user=user)
+            return self._model.objects.filter(user=user).order_by('-created_at')
         else:
-            return self._model.objects.all()
+            return self._model.objects.all().order_by('-created_at')
 
     def get_by_id(self, _id: int, user=None) -> Optional[Any]:
         if not self.exists(_id):
