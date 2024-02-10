@@ -1,4 +1,5 @@
 import DeleteProjectButton from "@/components/projects/DeleteProject";
+import UpdateProject from "@/components/projects/UpdateProject";
 
 export default function ProjectCard(
 	{
@@ -24,6 +25,7 @@ export default function ProjectCard(
 				</div>
 			</a>
 			<DeleteProjectButton projectId={id} />
+			<UpdateProject currentTitle={title} projectId={id} />
 		</div>
 	)
 }
