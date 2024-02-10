@@ -16,7 +16,6 @@ export default async function Page() {
 				<div>
 					<h1 className="text-center font-bold text-3xl mb-5">Your projects</h1>
 					<CreateProject/>
-
 					<Suspense fallback={<Spinner/>}>
 						<ProjectList/>
 					</Suspense>

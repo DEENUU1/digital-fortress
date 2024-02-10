@@ -1,4 +1,5 @@
 'use client'
+
 import ProjectCard from "./ProjectCard"
 
 export async function getProjects() {
@@ -26,7 +27,7 @@ export default async function ProjectList() {
 			) : (
 				projects.map((project: ProjectResponse) => (
 					<ProjectCard key={project.id} title={project.title} id={project.id} created_at={project.created_at} />
-					// <div key={project.id}><h1>{project.title}</h1></div>
+
 				))
 			)}
 		</section>
