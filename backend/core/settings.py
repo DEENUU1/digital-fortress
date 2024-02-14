@@ -75,14 +75,13 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]
 }
-#
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-#     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
-#     'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
-#     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
-# }
+
+# Celery
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
 
 AUTH_COOKIE = "access"
 AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
