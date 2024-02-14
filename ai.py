@@ -1,23 +1,33 @@
-from langchain import OpenAI
-from langchain.prompts import PromptTemplate
-import os
-from dotenv import load_dotenv
-from langchain.chains import LLMChain
 from langchain.chains import LLMChain
 from langchain.chat_models import ChatOpenAI
+from langchain.prompts import PromptTemplate
+from typing import Optional
 
-load_dotenv()
 
+class AIClient:
+    def __init__(self, openai_key: str, model: str):
+        self.__openai_key = openai_key
+        self.__model = model
 
-template = PromptTemplate.from_template(
-    "You are part of the system that helps the user create a mind map, "
-    "based on the given data you must return the best possible next scenario. "
-    "{input}, take it into account: "
-    "Previous scenarios: "
-    "{scenarios}"
-)
+    def __get_llm(self) -> ChatOpenAI:
+        return ChatOpenAI(openai_api_key=self.__openai_key, model=self.__model)
 
-model = ChatOpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
-chain = LLMChain(llm=model, prompt=template)
-x = chain.run(input="It must be written in Python", scenarios="I want to create a mind map")
-print(x)
+    @staticmethod
+    def __get_prompt() -> PromptTemplate:
+        return PromptTemplate.from_template(
+            "You are part of the system that helps the user create a mind map, "
+            "based on the given data you must return the best possible next scenario. "
+            "{input}, take it into account: "
+            "Previous scenarios: "
+            "{scenarios}"
+        )
+
+    def __get_chain(self) -> LLMChain:
+        __llm = self.__get_llm()
+        __prompt = self.__get_prompt()
+
+        return LLMChain(llm=__llm, prompt=__prompt)
+
+    def run(self, user_input: Optional[str] = "", scenarios: Optional[str] = "") -> str:
+        __chain = self.__get_chain()
+        return __chain.run(input=user_input, scenarios=scenarios)
