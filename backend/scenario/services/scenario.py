@@ -1,7 +1,5 @@
 from scenario.repository.scenario import ScenarioRepository
-from scenario.repository.project import ProjectRepository
-from typing import Dict, List
-from ..serializers import OutputScenarioSerializer, InputScenarioSerializer
+from scenario.tasks import run_ai_client_task
 
 
 class ScenarioService:
@@ -9,8 +7,16 @@ class ScenarioService:
     def __init__(self, repository: ScenarioRepository):
         self._repository = repository
 
-    def create(self, data):
-        return self._repository.create(data)
+    def create(self, data, user_id: int):
+        obj = self._repository.create(data)
+
+        run_ai_client_task(
+            user_id,
+            "gpt-3.5-turbo-16k-0613",
+            obj.id,
+            data.get("user_details"),
+        )
+        return obj
 
     def delete(self, user, _id: int) -> None:
         self._repository.delete(_id, user)

@@ -59,7 +59,7 @@ class ScenarioCreateAPIView(APIView):
     def post(self, request):
         serializer = InputScenarioSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        instance = self._service.create(serializer.validated_data)
+        instance = self._service.create(serializer.validated_data, request.user.id)
         return Response(OutputScenarioSerializer(instance).data, status=status.HTTP_201_CREATED)
 
 

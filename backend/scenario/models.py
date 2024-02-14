@@ -34,5 +34,3 @@ class Scenario(BaseModel):
         verbose_name = "Scenario"
         verbose_name_plural = "Scenarios"
 
-    # def __str__(self):
-    #     return self.project
