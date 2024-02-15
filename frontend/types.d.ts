@@ -9,6 +9,7 @@ type ProjectResponse = {
     user: number;
     created_at: string;
     updated_at: string;
+    storage_usage: string;
 };
 
 

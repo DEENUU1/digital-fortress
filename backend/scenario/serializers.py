@@ -21,7 +21,8 @@ class OutputProjectSerializer(ModelSerializer):
             "num_of_scenarios",
             "user",
             "created_at",
-            "updated_at"
+            "updated_at",
+            "storage_usage"
         )
 
 
