@@ -30,7 +30,7 @@ export default function Page({params}: { params: PageParams }) {
 	if (treeData.length <= 0) {
 		return (
 			<main>
-				<ProjectDetailsModal/>
+				<ProjectDetailsModal projectId={params.id}/>
 				<h2>Create root tree</h2>
 				<ModalCreateScenario parent_id={null} project_id={params.id}></ModalCreateScenario>
 			</main>
@@ -38,7 +38,7 @@ export default function Page({params}: { params: PageParams }) {
 	} else {
 		return (
 			<main>
-				<ProjectDetailsModal/>
+				<ProjectDetailsModal projectId={params.id}/>
 				<Tree label={<div>Root</div>}>
 					{renderTreeNodes(tree)}
 				</Tree>

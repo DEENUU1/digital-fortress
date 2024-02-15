@@ -1,15 +1,79 @@
 'use client';
 
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {toast} from "react-toastify";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
 
+function TableData({project}: {project: ProjectResponse | null}){
 
-export default function ProjectDetailsModal(){
-	const {isOpen, onOpen, onClose} = useDisclosure();
+	return (
+		<Table isStriped aria-label="Example static collection table">
+      <TableHeader>
+        <TableColumn>LABEL</TableColumn>
+        <TableColumn>DATA</TableColumn>
+      </TableHeader>
+      <TableBody>
+				<TableRow key="1">
+          <TableCell>Title</TableCell>
+          <TableCell>{project?.title}</TableCell>
+        </TableRow>
+        <TableRow key="2">
+          <TableCell>Current storage</TableCell>
+          <TableCell>{project?.storage_usage}</TableCell>
+        </TableRow>
+				<TableRow key="3">
+          <TableCell>Number of generated scenarios</TableCell>
+          <TableCell>{project?.num_of_scenarios}</TableCell>
+        </TableRow>
+				<TableRow key="4">
+          <TableCell>Created at</TableCell>
+          <TableCell>{project?.created_at}</TableCell>
+        </TableRow>
+        <TableRow key="5">
+          <TableCell>Updated at</TableCell>
+          <TableCell>{project?.updated_at}</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
+
+export default function ProjectDetailsModal({ projectId }: { projectId: number }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [project, setProject] = useState<ProjectResponse | null>(null);
+
+	const getProjectDetails = async () => {
+    try {
+      const response = await fetch(process.env.API_URL + `/api/v1/project/${projectId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: "include"
+      });
+
+      if (!response.ok) {
+        toast.error('Failed to fetch project details');
+        return;
+      }
+
+      const data = await response.json();
+      setProject(data);
+    } catch (error) {
+      toast.error('Error fetching project details');
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      getProjectDetails();
+    }
+  }, [isOpen]);
 
   return (
     <>
-      <Button onPress={onOpen}>Open Modal</Button>
+      <Button onPress={onOpen}>Details</Button>
       <Modal
         size={"full"}
         isOpen={isOpen}
@@ -18,30 +82,13 @@ export default function ProjectDetailsModal(){
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">Project details {project?.title}</ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis.
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
-                </p>
+                <TableData project={project}/>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
                 </Button>
               </ModalFooter>
             </>
