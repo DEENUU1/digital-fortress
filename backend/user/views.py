@@ -17,6 +17,7 @@ from .serializers import (
     OutputUserAccountSerializer,
     InputCreateUserAccountSerializer,
     InputUpdateUserAccountSerializer,
+    InputAPIKey
 )
 
 
@@ -46,6 +47,18 @@ class UserAccountMeAPI(APIView):
         serializer.is_valid(raise_exception=True)
         instance = self._service.update(user_id=request.user.id, data=request.data)
         return Response(OutputUserAccountSerializer(instance).data, status=status.HTTP_200_OK)
+
+
+class UpdateOpenAIAPIKeyAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+    _service = UserAccountService(UserAccountRepository())
+
+    @swagger_auto_schema(operation_description="Update OpenAI API key", request_body=InputAPIKey)
+    def put(self, request):
+        serializer = InputAPIKey(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self._service.update_openai_api_key(user_id=request.user.id, data=request.data)
+        return Response(InputAPIKey(instance).data, status=status.HTTP_200_OK)
 
 
 class CustomProviderAuthView(ProviderAuthView):

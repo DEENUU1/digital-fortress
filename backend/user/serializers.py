@@ -33,3 +33,11 @@ class InputCreateUserAccountSerializer(ModelSerializer):
             "last_name",
             "password",
         )
+
+
+class InputAPIKey(ModelSerializer):
+    class Meta:
+        model = UserAccount
+        fields = (
+            "openai_key",
+        )

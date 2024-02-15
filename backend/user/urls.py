@@ -6,6 +6,7 @@ from .views import (
     CustomTokenRefreshView,
     CustomTokenVerifyView,
     LogoutView,
+    UpdateOpenAIAPIKeyAPI
 )
 
 urlpatterns_jwt = [
@@ -17,7 +18,8 @@ urlpatterns_jwt = [
 
 urlpatterns_user = [
     path('me/', UserAccountMeAPI.as_view(), name='user_account_get_me'),
-    path('register/', UserRegisterAPIView.as_view(), name="register")
+    path('register/', UserRegisterAPIView.as_view(), name="register"),
+    path('me/api_key/', UpdateOpenAIAPIKeyAPI.as_view(), name="update_api_key"),
 ]
 
 

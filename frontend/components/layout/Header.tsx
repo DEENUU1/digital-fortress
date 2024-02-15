@@ -64,7 +64,7 @@ export default function Header() {
 						<>
 							<div className="col-start-10 col-end-12 font-medium flex justify-end items-center">
 								<Link
-									href="/"
+									href="/profile"
 									className="text-gray-800 border-solid border-black rounded-xl p-1 border-2 hover:text-white hover:bg-black mx-2 sm:mx-4 capitalize tracking-wide transition-all"
 								>
 									Profile

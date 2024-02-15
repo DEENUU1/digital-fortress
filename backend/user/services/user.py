@@ -15,3 +15,6 @@ class UserAccountService:
 
     def create(self, data) -> Dict:
         return self._repository.create(data)
+
+    def update_openai_api_key(self, user_id: int, data) -> Dict:
+        return self._repository.update_openai_api_key(user_id, data)

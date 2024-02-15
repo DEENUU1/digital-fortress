@@ -5,6 +5,7 @@ interface User {
 	last_name: string;
 	email: string;
 	id: number;
+	openai_key: string;
 }
 
 const authApiSlice = apiSlice.injectEndpoints({
