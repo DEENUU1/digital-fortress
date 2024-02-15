@@ -22,3 +22,18 @@ type ScenarioResponse = {
     created_at: string;
     updated_at: string;
 }
+
+type Price = {
+    id: number,
+    value: string,
+    currency: string
+}
+
+type SubscriptionResponse = {
+    id: number,
+    name: string,
+    description: string,
+    price: Price[],
+    max_project_storage: number,
+    num_of_projects: number
+}

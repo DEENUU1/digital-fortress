@@ -44,11 +44,11 @@ export default function Header() {
 							Feature
 						</Link>
 						<Link
-							href={"/"}
+							href={"/subscription"}
 							className={
 								"px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative hover:bg-gray-200 hover:bg-opacity-25"}
 						>
-							Pricing
+							Subscription
 						</Link>
 						<Link
 							href={"/projects"}
