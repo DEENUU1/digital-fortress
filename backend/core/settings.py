@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'user',
     'subscription',
     'scenario',
+    'file',
 ]
 
 MIDDLEWARE = [
