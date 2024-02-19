@@ -10,6 +10,7 @@ type ProjectResponse = {
     created_at: string;
     updated_at: string;
     storage_usage: string;
+    storage_percentage: string;
 };
 
 

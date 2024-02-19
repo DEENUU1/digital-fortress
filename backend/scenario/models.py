@@ -25,9 +25,9 @@ class Project(BaseModel):
     @property
     def storage_percentage(self):
         if self.limit_storage != 0:
-            return round((self.current_storage / self.limit_storage) * 100, 2)
+            return round((self.current_storage / self.limit_storage) * 100)
         else:
-            return 0.0
+            return 0
 
 
 class Scenario(BaseModel):

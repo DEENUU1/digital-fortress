@@ -4,6 +4,7 @@ import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDis
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell} from "@nextui-org/react";
+import ProjectStorageBar from "@/components/projects/ProjectStorageBar";
 
 function TableData({project}: {project: ProjectResponse | null}){
 
@@ -85,6 +86,10 @@ export default function ProjectDetailsModal({ projectId }: { projectId: number }
               <ModalHeader className="flex flex-col gap-1">Project details {project?.title}</ModalHeader>
               <ModalBody>
                 <TableData project={project}/>
+              </ModalBody>
+              <ModalBody>
+                <ProjectStorageBar value={+project?.storage_percentage}/>
+                <strong>{project?.storage_percentage} %</strong>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
