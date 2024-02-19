@@ -10,8 +10,7 @@ class FileService:
 
     def create(self, data):
         self._validate_file(data['file'])
-        size = 5
-        self._check_project_storage(data['project'].id, size)
+        self._check_project_storage(data['project'].id, data["file"])
 
         instance = self._repository.create(data)
 
@@ -31,11 +30,19 @@ class FileService:
         return self._repository.get_all(user)
 
     @staticmethod
-    def _check_project_storage(project_id: int, file_size: float) -> bool:
+    def convert_file_size_to_mb(file_size: float) -> float:
+        file_size_kb = file_size / 1024
+        file_size_mb = file_size_kb / 1024
+        return file_size_mb
+
+    @staticmethod
+    def _check_project_storage(project_id: int, uploaded_file) -> bool:
         project_repo = ProjectRepository()
         current_storage, limit_storage = project_repo.get_storage_info(project_id)
 
-        if current_storage + file_size > limit_storage:
+        file_size_mb = FileService.convert_file_size_to_mb(uploaded_file.size)
+
+        if current_storage + file_size_mb > limit_storage:
             return False
         return True
 
