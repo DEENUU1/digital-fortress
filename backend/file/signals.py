@@ -10,7 +10,7 @@ from scenario.repository.project import ProjectRepository
 def update_project_file_storage_after_uploading_file(sender, instance, created, **kwargs):
     if created:
         file_service = FileService(FileRepository())
-        file_size_mb = file_service.convert_file_size_to_mb(instance.file)
+        file_size_mb = file_service.convert_file_size_to_mb(instance.file.size)
 
         project_repository = ProjectRepository()
         project_repository.update_current_storage(instance.project.id, file_size_mb)

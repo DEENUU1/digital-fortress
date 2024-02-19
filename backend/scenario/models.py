@@ -6,8 +6,8 @@ from user.models import UserAccount
 class Project(BaseModel):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
-    limit_storage = models.IntegerField(default=0)
-    current_storage = models.IntegerField(default=0)
+    limit_storage = models.FloatField(default=0)
+    current_storage = models.FloatField(default=0)
     num_of_scenarios = models.IntegerField(default=0)
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
 

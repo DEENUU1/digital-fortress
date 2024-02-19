@@ -11,8 +11,8 @@ class ProjectRepository(CRUDRepository):
         if obj:
             obj.current_storage += value
             obj.save()
+            print(obj)
             return True
-
         return False
 
     def num_of_user_projects(self, user) -> int:
