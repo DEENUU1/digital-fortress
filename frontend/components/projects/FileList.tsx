@@ -1,8 +1,7 @@
 import {toast} from "react-toastify";
 import React, {useState, useEffect} from "react";
-import {isConfigOption} from "jackspeak";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
-import ProjectStorageBar from "@/components/projects/ProjectStorageBar";
+import FileUpload from "@/components/projects/FileUpload";
 
 
 export default function FileList({projectId}: {projectId: number}){
@@ -53,6 +52,9 @@ export default function FileList({projectId}: {projectId: number}){
             <>
               <ModalHeader className="flex flex-col gap-1">Project files</ModalHeader>
 
+							<ModalBody>
+								<FileUpload projectId={projectId}/>
+							</ModalBody>
               <ModalBody>
 								{files.map((file) => (
 									<div key={file.id} className="flex flex-col gap-1">
