@@ -22,6 +22,13 @@ class Project(BaseModel):
     def storage_usage(self):
         return f"{self.current_storage}/{self.limit_storage}"
 
+    @property
+    def storage_percentage(self):
+        if self.limit_storage != 0:
+            return round((self.current_storage / self.limit_storage) * 100, 2)
+        else:
+            return 0.0
+
 
 class Scenario(BaseModel):
     parent_id = models.ForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.SET_NULL)

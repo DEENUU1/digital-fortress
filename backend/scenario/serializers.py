@@ -22,7 +22,8 @@ class OutputProjectSerializer(ModelSerializer):
             "user",
             "created_at",
             "updated_at",
-            "storage_usage"
+            "storage_usage",
+            "storage_percentage"
         )
 
 
@@ -43,5 +44,5 @@ class OutputScenarioSerializer(ModelSerializer):
             "user_details",
             "user",
             "created_at",
-            "updated_at"
+            "updated_at",
         )
