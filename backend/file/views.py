@@ -20,3 +20,13 @@ class FileUploadAPIView(APIView):
 
         instance = self._service.create(serializer.validated_data)
         return Response(OutputFileSerializer(instance).data, status=status.HTTP_201_CREATED)
+
+
+class FileListAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    _service = FileService(FileRepository())
+
+    def get(self, request):
+        instance = self._service.get_all(request.user)
+        return Response(OutputFileSerializer(instance, many=True).data, status=status.HTTP_200_OK)
+

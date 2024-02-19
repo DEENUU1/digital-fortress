@@ -44,6 +44,7 @@ export default function ProjectDetailsModal({ projectId }: { projectId: number }
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [project, setProject] = useState<ProjectResponse | null>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 	const getProjectDetails = async () => {
     try {
       const response = await fetch(process.env.API_URL + `/api/v1/project/${projectId}`, {
@@ -70,7 +71,7 @@ export default function ProjectDetailsModal({ projectId }: { projectId: number }
     if (isOpen) {
       getProjectDetails();
     }
-  }, [isOpen]);
+  }, [getProjectDetails, isOpen]);
 
   return (
     <>
