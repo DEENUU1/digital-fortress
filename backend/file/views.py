@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+from .repository.file import FileRepository
+from .serializers import InputFileSerializer, OutputFileSerializer
+from .services.file import FileService
+
+
+class FileUploadAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    _service = FileService(FileRepository())
+
+    @swagger_auto_schema(operation_description="Add file", request_body=InputFileSerializer)
+    def post(self, request):
+        serializer = InputFileSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        instance = self._service.create(serializer.validated_data)
+        return Response(OutputFileSerializer(instance).data, status=status.HTTP_201_CREATED)

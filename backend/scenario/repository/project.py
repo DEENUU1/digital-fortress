@@ -17,3 +17,9 @@ class ProjectRepository(CRUDRepository):
 
     def num_of_user_projects(self, user) -> int:
         return self._model.objects.filter(user=user).count()
+
+    def get_storage_info(self, _id: int):
+        obj = self.get_by_id(_id)
+        if obj:
+            return obj.current_storage, obj.limit_storage
+        return None, None

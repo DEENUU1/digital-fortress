@@ -37,4 +37,5 @@ urlpatterns = [
     path('api/v1/user/', include("user.urls")),
     path('api/v1/subscription/', include("subscription.urls")),
     path('api/v1/', include("scenario.urls")),
+    path('api/v1/file/', include("file.urls")),
 ]
