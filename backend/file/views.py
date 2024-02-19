@@ -26,7 +26,6 @@ class FileListAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     _service = FileService(FileRepository())
 
-    def get(self, request):
-        instance = self._service.get_all(request.user)
+    def get(self, request, project_id: int):
+        instance = self._service.get_all(request.user, project_id)
         return Response(OutputFileSerializer(instance, many=True).data, status=status.HTTP_200_OK)
-

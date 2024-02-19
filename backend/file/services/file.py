@@ -26,8 +26,8 @@ class FileService:
     def delete(self, user, _id: int) -> None:
         self._repository.delete(_id, user)
 
-    def get_all(self, user):
-        return self._repository.get_all(user)
+    def get_all(self, user, project_id):
+        return self._repository.get_all_per_project(user, project_id)
 
     @staticmethod
     def convert_file_size_to_mb(file_size: float) -> float:

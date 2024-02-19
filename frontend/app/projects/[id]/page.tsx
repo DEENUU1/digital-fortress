@@ -7,6 +7,7 @@ import getTree from "@/components/projects/scenario/getTree";
 import constructTree from "@/components/projects/scenario/constructTree";
 import ModalCreateScenario from "@/components/projects/scenario/ModalCreateScenario";
 import ProjectDetailsModal from "@/components/projects/ProjectDetails";
+import FileList from "@/components/projects/FileList";
 
 
 interface PageParams {
@@ -33,12 +34,14 @@ export default function Page({params}: { params: PageParams }) {
 				<ProjectDetailsModal projectId={params.id}/>
 				<h2>Create root tree</h2>
 				<ModalCreateScenario parent_id={null} project_id={params.id}></ModalCreateScenario>
+				<FileList projectId={params.id}></FileList>
 			</main>
 		)
 	} else {
 		return (
 			<main>
 				<ProjectDetailsModal projectId={params.id}/>
+				<FileList projectId={params.id}></FileList>
 				<Tree label={<div>Root</div>}>
 					{renderTreeNodes(tree)}
 				</Tree>

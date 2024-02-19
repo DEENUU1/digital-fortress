@@ -39,3 +39,12 @@ type SubscriptionResponse = {
     max_project_storage: number,
     num_of_projects: number
 }
+
+type FileResponse = {
+    id: number;
+    user: number;
+    file: any;
+    status: string;
+    created_at: string;
+    updated_at: string;
+}

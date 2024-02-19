@@ -7,7 +7,7 @@ from .views import (
 
 urlpatterns_file = [
     path("", FileUploadAPIView.as_view(), name="file_upload"),
-    path("", FileListAPIView.as_view(), name="file_list"),
+    path("<int:project_id>/", FileListAPIView.as_view(), name="file_list"),
 ]
 
 

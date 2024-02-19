@@ -15,3 +15,7 @@ class FileRepository(CRUDRepository):
         file.status = status
         file.save()
         return file
+
+    def get_all_per_project(self, user, project_id):
+        return self._model.objects.filter(user=user, project_id=project_id).order_by("-created_at")
+
