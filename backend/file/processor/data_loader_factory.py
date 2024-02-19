@@ -4,6 +4,7 @@ from langchain.document_loaders import PyPDFLoader, CSVLoader, JSONLoader, Unstr
 class DataLoaderFactory:
     @staticmethod
     def split_docs(file_path: str):
+        file_path = str(file_path)
         if file_path.endswith(".pdf"):
             return PyPDFLoader(file_path)
         elif file_path.endswith(".csv"):

@@ -1,19 +1,21 @@
-from processor.split import split_files
-from embedding.pinecone import save_to_pinecone
-from file.repository.file import FileRepository
+from file.processor.split import split_files
+from file.embedding.pinecone import save_to_pinecone
 from user.repository.user import UserAccountRepository
 from celery import shared_task
+from file.models import File
 
 
 @shared_task()
-def process_uploaded_file(_id: int, user_id: int):
-
-    file_repo = FileRepository()
-    file = file_repo.get_by_id(_id)
+def process_uploaded_file(file: File, user_id: int):
+    file.status = 'Processing'
+    file.save()
 
     chunks = split_files(file.file)
 
     user_repo = UserAccountRepository()
     user = user_repo.get_by_id(user_id)
 
-    save_to_pinecone(chunks, user.openai_key)
+    save_to_pinecone(chunks, user.openai_key, file.project.slug)
+
+    file.status = 'Processed'
+    file.save()
