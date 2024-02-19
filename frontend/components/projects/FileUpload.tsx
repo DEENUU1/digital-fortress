@@ -24,9 +24,6 @@ export default function FileUpload({projectId}: {projectId: number}){
 		try {
 			const response = await fetch(process.env.API_URL + "/api/v1/file/", {
 				method: "POST",
-				headers: {
-					"Content-Type": "multipart/form-data"
-				},
 				credentials: "include",
 				body: formData
 			})
@@ -39,6 +36,8 @@ export default function FileUpload({projectId}: {projectId: number}){
 
 		} catch (error) {
 			toast.error("Error uploading file");
+		} finally {
+			setIsLoading(false);
 		}
 	}
 

@@ -37,7 +37,7 @@ export default function FileList({projectId}: {projectId: number}){
 		if (isOpen){
 			getFileList();
 		}
-	}, [getFileList, isOpen]);
+	}, [isOpen]);
 
   return (
     <>
