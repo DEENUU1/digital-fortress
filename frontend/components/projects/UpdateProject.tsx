@@ -56,7 +56,7 @@ export default function UpdateProject({currentTitle, projectId}: {currentTitle: 
 
 	return (
 		<>
-			<Button onPress={onOpen}>Update</Button>
+			<Button size={"sm"} onPress={onOpen}><strong>Update</strong></Button>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop={"blur"}>
 				<ModalContent>
 					{(onClose) => (

@@ -56,7 +56,7 @@ export default function CreateProject() {
 
 	return (
 		<>
-			<Button onPress={onOpen}>Create</Button>
+			<Button color={"success"} onPress={onOpen}><strong>Create</strong></Button>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop={"blur"}>
 				<ModalContent>
 					{(onClose) => (

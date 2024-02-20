@@ -19,13 +19,12 @@ export default function ProjectCard(
 			<a href={`/projects/${id}`}>
 				<div className="px-4 py-3 w-72">
 					<p className="text-lg font-bold text-black truncate block capitalize">{title}</p>
-					<div className="flex items-center">
-						<p className="text-sm font-semibold text-black cursor-auto my-3">{created_at}</p>
-					</div>
 				</div>
 			</a>
-			<DeleteProjectButton projectId={id} />
-			<UpdateProject currentTitle={title} projectId={id} />
+			<div className="space-x-2 p-4">
+				<DeleteProjectButton projectId={id} />
+				<UpdateProject currentTitle={title} projectId={id} />
+			</div>
 		</div>
 	)
 }

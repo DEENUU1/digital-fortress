@@ -33,7 +33,7 @@ export default function DeleteProjectButton({projectId}: { projectId: number }) 
 
 	return (
 		<>
-      <Button color="danger" onClick={handleDelete} isLoading={isLoading}>Delete</Button>
+      <Button size={"sm"} color="danger" onClick={handleDelete} isLoading={isLoading}><strong>Delete</strong></Button>
 		</>
 	)
 }
