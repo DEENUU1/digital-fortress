@@ -16,7 +16,7 @@ export default function ModalResponse({data}: { data: ScenarioResponse }) {
 
 	return (
 		<>
-			<Button onPress={onOpen}>Details</Button>
+			<Button size="sm" onPress={onOpen}><strong>Details</strong></Button>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop={"blur"}>
 				<ModalContent>
 					{(onClose) => (

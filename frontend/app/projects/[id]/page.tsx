@@ -39,7 +39,6 @@ export default function Page({params}: { params: PageParams }) {
 				<section className="h-screen flex items-center justify-center">
 					<h1 className="text-2xl font-bold">Click &apos;create&apos; to start your scenario.</h1>
 				</section>
-
 			</main>
 		)
 	} else {
