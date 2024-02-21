@@ -31,17 +31,24 @@ export default function Page({params}: { params: PageParams }) {
 	if (treeData.length <= 0) {
 		return (
 			<main>
-				<ProjectDetailsModal projectId={params.id}/>
-				<h2>Create root tree</h2>
-				<ModalCreateScenario parent_id={null} project_id={params.id}></ModalCreateScenario>
-				<FileList projectId={params.id}></FileList>
+				<div className="space-x-2 p-4">
+					<ProjectDetailsModal projectId={params.id}/>
+					<FileList projectId={params.id}/>
+					<ModalCreateScenario parent_id={null} project_id={params.id}/>
+				</div>
+				<section className="h-screen flex items-center justify-center">
+					<h1 className="text-2xl font-bold">Click &apos;create&apos; to start your scenario.</h1>
+				</section>
+
 			</main>
 		)
 	} else {
 		return (
 			<main>
-				<ProjectDetailsModal projectId={params.id}/>
-				<FileList projectId={params.id}></FileList>
+				<div className="space-x-2 p-4">
+					<ProjectDetailsModal projectId={params.id}/>
+					<FileList projectId={params.id}/>
+				</div>
 				<Tree label={<div>Root</div>}>
 					{renderTreeNodes(tree)}
 				</Tree>

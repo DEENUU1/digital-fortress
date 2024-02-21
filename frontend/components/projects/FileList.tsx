@@ -41,7 +41,7 @@ export default function FileList({projectId}: {projectId: number}){
 
   return (
     <>
-      <Button onPress={onOpen}>Files</Button>
+      <Button color="primary" size="sm" onPress={onOpen}><strong>Files</strong></Button>
       <Modal
         size={"full"}
         isOpen={isOpen}

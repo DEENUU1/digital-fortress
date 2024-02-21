@@ -1,19 +1,21 @@
 import {Select, SelectItem} from "@nextui-org/react";
 
 function PriceSelect({data}: { data: any }) {
-
+  const defaultSelectedKey = `${data[0].value}${data[0].currency}`;
+	console.log(defaultSelectedKey);
 	return (
 		<Select
 			key="success"
-			color="success"
+			// color="success"
 			label="Price"
 			placeholder="Select a price"
 			className="max-w-xs"
+			defaultSelectedKeys={[1]}
 		>
-			{data.map((price: any) => (
-				<SelectItem key={price.value} value={price.value}>
-					{price.value} {price.currency}
-				</SelectItem>
+			{data.map((price: any, index: number) => (
+					<SelectItem key={index}>
+							{price.value} {price.currency}
+					</SelectItem>
 			))}
 		</Select>
 	)

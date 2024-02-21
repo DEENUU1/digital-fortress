@@ -75,7 +75,7 @@ export default function ProjectDetailsModal({ projectId }: { projectId: number }
 
   return (
     <>
-      <Button onPress={onOpen}>Details</Button>
+      <Button onPress={onOpen} size="sm" color="primary"><strong>Details</strong></Button>
       <Modal
         size={"full"}
         isOpen={isOpen}

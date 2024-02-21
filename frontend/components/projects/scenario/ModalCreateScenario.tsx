@@ -58,7 +58,7 @@ export default function ModalCreateScenario({parent_id, project_id}: { parent_id
 
 	return (
 		<>
-			<Button onPress={onOpen}>Create</Button>
+			<Button size="sm" color="success" onPress={onOpen}>Create</Button>
 			<Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop={"blur"}>
 				<ModalContent>
 					{(onClose) => (
