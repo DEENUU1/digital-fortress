@@ -5,11 +5,12 @@ export default function ProjectCard(
 	{
 		title,
 		id,
-		created_at
+		onDeleteProjects,
 	}: {
 		title: string,
 		id: number,
 		created_at: string,
+		onDeleteProjects: () => void
 	}
 ) {
 
@@ -22,7 +23,7 @@ export default function ProjectCard(
 				</div>
 			</a>
 			<div className="space-x-2 p-4">
-				<DeleteProjectButton projectId={id} />
+				<DeleteProjectButton projectId={id} onDeleteProjects={onDeleteProjects}/>
 				<UpdateProject currentTitle={title} projectId={id} />
 			</div>
 		</div>

@@ -14,7 +14,7 @@ import {useRetrieveUserQuery} from '@/redux/features/authApiSlice';
 import {toast} from 'react-toastify';
 
 
-export default function CreateProject() {
+export default function CreateProject({onUpdateProjects}: {onUpdateProjects: () => void}) {
 	const {isOpen, onOpen, onOpenChange} = useDisclosure();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [title, setTitle] = useState<string>();
@@ -41,7 +41,8 @@ export default function CreateProject() {
 			})
 
 			if (response.ok) {
-				toast.success("Project created successfully")
+				toast.success("Project created successfully");
+				onUpdateProjects();
 			} else {
 				toast.error("Something went wrong. Please Try again.")
 			}

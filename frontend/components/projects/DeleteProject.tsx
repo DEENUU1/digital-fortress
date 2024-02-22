@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import {useState} from "react";
 import {Button} from "@nextui-org/react";
 
-export default function DeleteProjectButton({projectId}: { projectId: number }) {
+export default function DeleteProjectButton({projectId, onDeleteProjects}: { projectId: number, onDeleteProjects: () => void }) {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleDelete = async () => {
@@ -20,6 +20,7 @@ export default function DeleteProjectButton({projectId}: { projectId: number }) 
 
 			if (response.ok) {
 				toast.success("Project deleted.")
+				onDeleteProjects();
 			}
 			else {
 				toast.error("Can't delete project.")
