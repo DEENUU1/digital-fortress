@@ -14,7 +14,7 @@ import {useRetrieveUserQuery} from '@/redux/features/authApiSlice';
 import {toast} from 'react-toastify';
 
 
-export default function ModalCreateScenario({parent_id, project_id}: { parent_id: number | null, project_id: number }) {
+export default function ModalCreateScenario({parent_id, project_id, onUpdateTree}: { parent_id: number | null, project_id: number, onUpdateTree: () => void }) {
 	const {isOpen, onOpen, onOpenChange} = useDisclosure();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [useDetails, setUserDetails] = useState<string | null>();
@@ -44,6 +44,7 @@ export default function ModalCreateScenario({parent_id, project_id}: { parent_id
 
 			if (response.ok) {
 				toast.success("Scenario created successfully")
+				onUpdateTree();
 			} else {
 				toast.error("Something went wrong. Please Try again.")
 			}

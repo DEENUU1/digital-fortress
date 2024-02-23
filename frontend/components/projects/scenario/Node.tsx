@@ -4,7 +4,7 @@ import ModalResponse from "@/components/projects/scenario/ModalResponse";
 import ModalCreateScenario from "@/components/projects/scenario/ModalCreateScenario";
 
 
-export default function Node({ data }: { data: ScenarioResponse }) {
+export default function Node({ data, onUpdateTree }: { data: ScenarioResponse, onUpdateTree: () => void }) {
   const hasResponse = !!data.response;
 
   return (
@@ -17,7 +17,7 @@ export default function Node({ data }: { data: ScenarioResponse }) {
 
       <div className="space-x-2 mt-5">
         <ModalResponse data={data}></ModalResponse>
-        <ModalCreateScenario parent_id={data.id} project_id={data.project}></ModalCreateScenario>
+        <ModalCreateScenario parent_id={data.id} project_id={data.project} onUpdateTree={onUpdateTree}></ModalCreateScenario>
       </div>
     </div>
   );
