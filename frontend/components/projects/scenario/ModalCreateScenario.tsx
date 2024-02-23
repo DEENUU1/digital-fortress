@@ -24,6 +24,7 @@ export default function ModalCreateScenario({parent_id, project_id, onUpdateTree
 		e.preventDefault();
 
 		setIsLoading(true);
+		onOpenChange();
 
 		const data = JSON.stringify({
 			"parent_id": parent_id,
@@ -53,7 +54,6 @@ export default function ModalCreateScenario({parent_id, project_id, onUpdateTree
 			toast.error("Something went wrong. Please Try again.");
 		} finally {
 			setIsLoading(false);
-			onOpenChange();
 		}
 	}
 
