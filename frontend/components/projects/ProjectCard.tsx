@@ -24,7 +24,7 @@ export default function ProjectCard(
 			</a>
 			<div className="space-x-2 p-4">
 				<DeleteProjectButton projectId={id} onDeleteProjects={onDeleteProjects}/>
-				<UpdateProject currentTitle={title} projectId={id} />
+				<UpdateProject currentTitle={title} projectId={id} onUpdateProject={onDeleteProjects}/>
 			</div>
 		</div>
 	)
