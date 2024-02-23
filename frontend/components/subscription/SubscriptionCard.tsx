@@ -1,38 +1,19 @@
-import {Select, SelectItem} from "@nextui-org/react";
-
-function PriceSelect({data}: { data: any }) {
-  const defaultSelectedKey = `${data[0].value}${data[0].currency}`;
-	console.log(defaultSelectedKey);
-	return (
-		<Select
-			key="success"
-			// color="success"
-			label="Price"
-			placeholder="Select a price"
-			className="max-w-xs"
-			defaultSelectedKeys={[1]}
-		>
-			{data.map((price: any, index: number) => (
-					<SelectItem key={index}>
-							{price.value} {price.currency}
-					</SelectItem>
-			))}
-		</Select>
-	)
-}
-
 
 export function SubscriptionCard({data}: { data: SubscriptionResponse }) {
+	const firstPrice = data.price[0];
+
 	return (
 		<>
 			<div
-				className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-				<h3 className="mb-4 text-2xl font-semibold">{data.name}</h3>
-				<p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">Best option for personal use & for
-					your next project.</p>
+				className={`flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border ${
+					firstPrice.value === "0.00" ? 'border-green-600 border-3' : 'border-gray-100'
+				} shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white hover:scale-105 hover:shadow-xl`}
+			>
 				<div className="flex justify-center items-baseline my-8">
-					<PriceSelect data={data.price}/>
+					<h1><strong className="text-4xl">{firstPrice.value}</strong> {firstPrice.currency}</h1>
 				</div>
+				<h3 className="mb-4 text-2xl font-semibold">{data.name}</h3>
+				<p className="font-light text-gray-500 sm:text-lg dark:text-gray-400 mb-3">{data.description}</p>
 				<ul role="list" className="mb-8 space-y-4 text-left">
 					<li className="flex items-center space-x-3">
 						<svg className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
