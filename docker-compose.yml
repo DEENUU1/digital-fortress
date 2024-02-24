@@ -5,7 +5,7 @@ services:
         hostname: web
         build:
             context: ./backend
-            dockerfile: ./config/backend/Dockerfile
+            dockerfile: ./Dockerfile
         container_name: backend
         command: >
             bash -c "
@@ -30,8 +30,8 @@ services:
 
     celery:
         build:
-            context: ./backend/core
-            dockerfile: ./config/backend/Dockerfile
+            context: ./backend
+            dockerfile: ./Dockerfile
         container_name: celery
         command: celery -A core.celery worker -l info
         volumes:
