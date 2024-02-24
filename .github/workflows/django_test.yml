@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: 3.12
 
+      - name: Set up env variables
+        run: echo "DEBUG=True" >> $GITHUB_ENV
+
       - name: Install dependencies
         working-directory: ./backend
         run: pip install -r requirements.txt
