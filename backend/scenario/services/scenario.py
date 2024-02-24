@@ -11,6 +11,7 @@ class ScenarioService:
         obj = self._repository.create(data)
 
         run_ai_client_task(
+            obj.project.slug,
             user_id,
             "gpt-3.5-turbo-16k-0613",
             obj.id,

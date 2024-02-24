@@ -13,10 +13,11 @@ def get_embedding_func(openai_key: str) -> OpenAIEmbeddings:
     return OpenAIEmbeddings(openai_api_key=openai_key)
 
 
-def get_pinecone(openai_key: str) -> Pinecone:
+def get_pinecone(openai_key: str, project_slug: str) -> Pinecone:
     return Pinecone.from_existing_index(
         index_name=settings.PINECONE,
         embedding=get_embedding_func(openai_key),
+        namespace=project_slug
     )
 
 
