@@ -20,8 +20,8 @@ class AIClient:
     @staticmethod
     def __get_prompt(_input, scenarios) -> str:
         return f""" 
-            You are part of the system that helps the user create a mind map, 
-            based on the given data you must return the best possible next scenario. 
+            Based on the given data you must return the best possible next scenario. 
+            For example what can happened if something...
             {_input}, take it into account: 
             Previous scenarios: 
             {scenarios}
