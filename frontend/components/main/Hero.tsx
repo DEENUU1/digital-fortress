@@ -1,6 +1,11 @@
 import Link from "next/link";
+import {TypewriterEffect} from "@/components/ui/TypewriterEffect";
+import {words} from "@/components/main/heroText";
 
 export default function Hero(){
+
+
+
   return (
     <>
       <section
@@ -18,33 +23,9 @@ export default function Hero(){
                   className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   Digital Fortress
                 </h1>
-                <div className="mb-10">
-                  <blockquote className="mb-12 text-base sm:text-lg md:text-xl">
-                    Every move Strathmore made was meticulously planned. He dependedheavily on his computer when
-                    devising
-                    and revising his plans. Likemany NSA employees, Strathmore used NSA-developed software
-                    calledBrainStorm—a risk-free way to carry out “what-if”scenarios in the safety of a computer.
-                    BrainStorm was an artificial intelligence experiment describedby its developers as a Cause & Effect
-                    Simulator. It originallyhad been intended for use in political campaigns as a way to createreal-time
-                    models of a given “political environment.” Fedby enormous amounts of data, the program created a
-                    relationaryweb—a hypothesized model of interaction between politicalvariables, including current
-                    prominent figures, their staffs, theirpersonal ties to each other, hot issues,
-                    individuals’motivations
-                    weighted by variables like sex, ethnicity, money, andpower. The user could then enter any
-                    hypothetical
-                    event andBrainStorm would predict the event’s effect on “theenvironment.” Commander Strathmore
-                    worked
-                    religiously with BrainStorm—notfor political purposes, but as a TFM device; Time-Line, Flowchart,&
-                    Mapping software was a powerful tool for outlining
-                    complexstrategies and predicting weaknesses. Susan suspected there wereschemes hidden in
-                    Strathmore’s computer that someday wouldchange the world
-                  </blockquote>
-                  <address>
-                    Written by Dan Brown<br/>
-                  </address>
-                </div>
+                  <TypewriterEffect words={words} />
                 <div
-                  className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                  className="flex mt-5 flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
                     href="/subscription"
                     className="rounded-sm bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
