@@ -36,7 +36,20 @@
 
 
 ## Features
-1. 
+1. JWT and OAuth Google Integration:
+   - Implements a robust authentication and authorization system through the synergistic use of JSON Web Tokens (JWT) and OAuth Google, ensuring a high level of security in the processes.
+
+2. Langchain Framework Integration for Large Language Models:
+   - Leverages the Langchain framework to seamlessly integrate and interact with large language models, optimizing the handling of extensive linguistic data.
+
+3. Tree Data Structure for Scenario Interconnections:
+   - Employing a sophisticated tree data structure to establish connections between individual scenarios. This enables the transparent construction of elaborate scenarios, enhancing the overall project structure.
+
+4. Advanced File Processing and Capacity Management:
+   - Implements advanced file processing techniques, including embedding, and provides robust management of project capacity constraints. Users can efficiently utilize and manage the maximum allowable capacity for their projects.
+
+5. Subscription System for Enhanced Application Features:
+   - Incorporates a subscription system that enables users to unlock additional application capabilities. Notably, the integration with the Stripe payment system is currently pending, adding a streamlined payment process to the subscription functionality.
 
 ## Technologies:
 - Python
