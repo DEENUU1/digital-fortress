@@ -17,7 +17,9 @@ jobs:
           python-version: 3.12
 
       - name: Set up env variables
-        run: echo "DEBUG=True" >> $GITHUB_ENV
+        run: |
+          echo "DEBUG=True" >> $GITHUB_ENV
+          echo "PINECONE_API_KEY=test" >> $GITHUB_ENV
 
       - name: Install dependencies
         working-directory: ./backend
