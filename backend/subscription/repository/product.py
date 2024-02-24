@@ -1,3 +1,5 @@
+from typing import List, Optional, Any
+
 from core.repository.base_repository import CRUDRepository
 from ..models import Product
 from rest_framework.exceptions import NotFound
@@ -22,3 +24,6 @@ class ProductRepository(CRUDRepository):
 
     def product_exists_by_name(self, name: str) -> bool:
         return self._model.objects.filter(name=name).exists()
+
+    def get_all(self, user=None) -> List[Optional[Any]]:
+        return self._model.objects.filter(is_active=True).order_by('price')
