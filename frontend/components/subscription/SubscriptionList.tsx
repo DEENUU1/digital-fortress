@@ -13,6 +13,7 @@ export async function getSubscriptions() {
 }
 
 
+// eslint-disable-next-line @next/next/no-async-client-component
 export default async function SubscriptionList() {
 	const subscriptions: SubscriptionResponse[] = await getSubscriptions();
 

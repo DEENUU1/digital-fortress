@@ -41,6 +41,10 @@ export default function FileUpload({projectId}: {projectId: number}){
 		}
 	}
 
+	const handleSetFile = (e: any) => {
+		setFile(e.target.file[0])
+	}
+
 	return (
 		<>
 			<form onSubmit={handleFileUpload}>
@@ -48,7 +52,7 @@ export default function FileUpload({projectId}: {projectId: number}){
 					className="border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-gray-600 placeholder-gray-400"
 					id="logo"
 					type="file"
-					onChange={(e) => setFile(e.target.files[0])}
+					onChange={(e) => handleSetFile(e)}
 				/>
 				<Button isLoading={isLoading} type="submit">{isLoading ? "Uploading..." : "Upload"}</Button>
 			</form>

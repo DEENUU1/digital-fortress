@@ -1,7 +1,7 @@
 'use client';
 
 import ProjectList from "@/components/projects/ProjectList";
-import React, {Suspense, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import CreateProject from "@/components/projects/CreateProject";
 
 export default function Page() {

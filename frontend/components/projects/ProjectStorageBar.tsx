@@ -1,7 +1,9 @@
 import {Progress} from "@nextui-org/react";
 
 
-export default function ProjectStorageBar({value}: {value: number}) {
+export default function ProjectStorageBar({value}: {value: number | undefined}) {
+
+	if (!value) return null;
 
 	if (value <= 0){
 		return (

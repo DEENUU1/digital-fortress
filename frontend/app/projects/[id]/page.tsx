@@ -2,14 +2,13 @@
 
 import {Tree, TreeNode} from 'react-organizational-chart';
 import Node from "@/components/projects/scenario/Node";
-import getTree from "@/components/projects/scenario/getTree";
 import constructTree from "@/components/projects/scenario/constructTree";
 import ModalCreateScenario from "@/components/projects/scenario/ModalCreateScenario";
 import ProjectDetailsModal from "@/components/projects/ProjectDetails";
 import FileList from "@/components/projects/FileList";
 import {useState, useEffect} from "react";
 import {Simulate} from "react-dom/test-utils";
-import compositionUpdate = Simulate.compositionUpdate;
+
 
 interface PageParams {
 	id: number;

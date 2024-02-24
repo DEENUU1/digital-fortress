@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useRetrieveUserQuery} from "@/redux/features/authApiSlice";
 import {Button} from "@nextui-org/react";
 import {toast} from "react-toastify";
+import Input from "@/components/profile/Input";
 
 
 export default function UserGeneralSettings(){
@@ -45,36 +46,15 @@ export default function UserGeneralSettings(){
     <div className="max-w-3xl mx-auto">
       <div className="mb-4">
         <label htmlFor="firstName" className="text-gray-600 block">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-500 w-full"
-          placeholder={user?.first_name}
-          disabled={true}
-        />
+        <Input placeholderValue={user?.first_name} type={"text"} id={"firstName"} name={"firstName"}/>
       </div>
       <div className="mb-4">
         <label htmlFor="lastName" className="text-gray-600 block">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-500 w-full"
-          placeholder={user?.last_name}
-          disabled={true}
-        />
+        <Input placeholderValue={user?.last_name} type={"text"} id={"lastName"} name={"lastName"}/>
       </div>
       <div className="mb-4">
         <label htmlFor="email" className="text-gray-600 block">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-500 w-full"
-          placeholder={user?.email}
-          disabled={true}
-        />
+        <Input placeholderValue={user?.email} type={"email"} id={"email"} name={"email"}/>
       </div>
       <form onSubmit={handleSubmit} className="mb-4">
         <label htmlFor="apiKey" className="text-gray-600 block">API Key:</label>

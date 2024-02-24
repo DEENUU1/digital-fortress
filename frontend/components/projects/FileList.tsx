@@ -8,7 +8,6 @@ export default function FileList({projectId}: {projectId: number}){
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [files, setFiles] = useState<FileResponse[]>([]);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const getFileList = async () => {
 		try{
 			const response = await fetch(process.env.API_URL + `/api/v1/file/${projectId}`,{
